@@ -7,6 +7,9 @@ This is a full-stack web application that uses artificial intelligence to genera
 - [Technology Stack](#technology-stack)
 - [Getting Started](#getting-started)
 - [Running the Application](#running-the-application)
+- [Git Commit Conventions](#git-commit-conventions)
+- [Branching](#branching)
+- [Pull Requests](#pull-requests)
 
 ## Technology Stack
 
@@ -49,3 +52,24 @@ This is a full-stack web application that uses artificial intelligence to genera
   ```
 
 3. Open http://localhost:3000 to view the frontend in the browser.
+
+## Git Commit Conventions 
+- feat: Used when adding a new feature to the project 
+- fix: Used when fixing a bug 
+- docs: Used when updating documentation 
+- refactor: Used when refactoring code without changing its behavior 
+- test: Used when adding or modifying tests 
+- chore: Used for miscellaneous tasks 
+ 
+## Branching 
+
+`<name> / <type_of_change> / <description>`
+
+eg. `tom/feat/home-page`
+ 
+## Pull Requests 
+
+- [ ] Describe your Changes 
+- [ ] Issue(s) Fixed
+- [ ] Things to Note 
+- [ ] Type of Change
