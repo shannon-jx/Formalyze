@@ -1,0 +1,93 @@
+.home-container {
+    padding: 20px;
+    text-align: center;
+}
+
+.hero-section {
+    padding: 50px 0;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    margin-bottom: 40px;
+}
+
+.hero-section h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.hero-section p {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+.cta-button {
+    background-color: black;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+.cta-button:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+
+.how-it-works-section,
+.features-section {
+    margin-bottom: 40px;
+}
+
+.how-it-works-section h2,
+.features-section h2,
+.cta-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.steps-grid,
+.features-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.step-card,
+.feature-card {
+    background-color: white;
+    padding: 20px;
+    width: 30%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.step-card h3,
+.feature-card h3 {
+    margin-top: 0;
+    color: black;
+}
+
+.step-card p,
+.feature-card p {
+    font-size: 1.1em;
+    color: #555;
+}
+
+.cta-section {
+    background-color: #f4f4f4;
+    padding: 40px;
+    border-radius: 8px;
+}
+
+.cta-section p {
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    color: #555;
+}
