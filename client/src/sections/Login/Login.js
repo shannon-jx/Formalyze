@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import {signInWithEmailAndPassword} from 'firebase/auth';
+import {auth} from './firebase';
+
 import './Login.css';
 
 const Login = () => {
@@ -13,11 +16,16 @@ const Login = () => {
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Login submitted:', credentials);
-    alert('Login successful!'); // Replace with actual authentication logic
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log('User signed in:', userCredential.user);
+      setError('');
+      // Redirect to another page or update UI based on sign-in status
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
