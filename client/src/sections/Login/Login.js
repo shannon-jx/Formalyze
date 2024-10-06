@@ -1,69 +1,70 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import {signInWithEmailAndPassword} from 'firebase/auth';
-import {auth} from './firebase';
+import React, { useEffect } from 'react';
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import * as firebaseui from 'firebaseui';
+import 'firebaseui/dist/firebaseui.css';
 
-import './Login.css';
+const firebaseConfig = {
+  apiKey: "AIzaSyDkRl-rXPp3nCHwxrP3yfY0eAXnh_fmk30",
+  authDomain: "formalyze-ec725.firebaseapp.com",
+  projectId: 'formalyze-ec725',
+  storageBucket: "formalyze-ec725.appspot.com",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "1:1037229349268:web:ac131cca3befa5edced781",
+};
 
-const Login = () => {
-  const [credentials, setCredentials] = useState({
-    email: '',
-    password: '',
-  });
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCredentials({ ...credentials, [name]: value });
-  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const uiConfig = {
+  signInOptions: [
+    "google.com",
+  ],
+  signInSuccessUrl: '../Home', 
+  signInFlow: 'popup',
+};
+
+function Login() {
+  useEffect(() => {
+    const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(auth);
+    ui.start('#firebaseui-auth-container', uiConfig);
+  }, []);
+
+
+
+ function  ProviderSignIn(){
+    const provider = new GoogleAuthProvider();
+
+    const signInWithProvider = async ()=>
+   { 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log('User signed in:', userCredential.user);
-      setError('');
-      // Redirect to another page or update UI based on sign-in status
-    } catch (err) {
-      setError(err.message);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log("User signed in:", user);
     }
-  };
+    catch (error){
+      console.error("Error during sign-in:", error);
+    }
+  }
+
+ }
+  
+
 
   return (
-    <div className="login">
+    <div style={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center', 
+      justifyContent: 'center', 
+      minHeight: '100vh'
+    }}>
       <h1>Login</h1>
-      <form onSubmit={handleSubmit} className="login-form">
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={credentials.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={credentials.password}
-            onChange={handleChange}
-            required
-          />
-          <Link to="/forgot-password" className="forgot-password-link">Forgot Password?</Link>
-        </div>
-        <button type="submit" className="submit-button">Login</button>
-      </form>
-      <div className="additional-links">
-        <p className="signup-prompt">Already have an account?  
-          <Link to="/sign-up" className="signup-link"> Sign up here</Link>
-        </p>
-      </div>
+      <div id="firebaseui-auth-container"></div>
+
     </div>
   );
-};
+}
 
 export default Login;

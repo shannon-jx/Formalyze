@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Register.css';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from './firebase';
+// import { createUserWithEmailAndPassword } from 'firebase/auth';
+// import { auth } from './firebase';
 
 const Register = () => {
   const [credentials, setCredentials] = useState({
@@ -17,24 +17,24 @@ const Register = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (credentials.password !== credentials.confirmPassword) {
-      alert('Passwords do not match!');
-      return;
-    }
+    // e.preventDefault();
+    // if (credentials.password !== credentials.confirmPassword) {
+    //   alert('Passwords do not match!');
+    //   return;
+    // }
 
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        credentials.email,
-        credentials.password
-      );
-      console.log('Registration successful:', userCredential);
-      alert('Registration successful!');
-    } catch (error) {
-      console.error('Error during registration:', error);
-      alert('Error during registration: ' + error.message);
-    }
+    // try {
+    //   const userCredential = await createUserWithEmailAndPassword(
+    //     auth,
+    //     credentials.email,
+    //     credentials.password
+    //   );
+    //   console.log('Registration successful:', userCredential);
+    //   alert('Registration successful!');
+    // } catch (error) {
+    //   console.error('Error during registration:', error);
+    //   alert('Error during registration: ' + error.message);
+    // }
   };
 
 
