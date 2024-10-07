@@ -1,0 +1,131 @@
+.generate-chat-container {
+    padding: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+}
+
+.subtitle {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #555;
+}
+
+.chat-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-textarea {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    outline: none;
+    resize: none;
+    transition: border-color 0.2s;
+}
+
+.input-textarea:focus {
+    border-color: #007bff;
+}
+
+.submit-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+.response-box {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.response-box h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.response-box p {
+    font-size: 16px;
+    color: #555;
+}
+
+.question-input,
+.option-input {
+    width: 100%;
+    margin-bottom: 10px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 16px;
+}
+
+.question-input {
+    margin-top: 30px;
+}
+
+.option-label {
+    font-size: 16px;
+}
+
+.type-dropdown {
+    margin-left: 10px;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.input-select-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.question-input {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.type-dropdown {
+    padding: 5px;
+    font-size: 14px;
+}
+
+.option-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.option-container input[type="radio"],
+.option-container input[type="checkbox"] {
+    margin-right: 10px;
+}
