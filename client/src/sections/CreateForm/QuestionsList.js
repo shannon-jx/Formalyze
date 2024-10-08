@@ -49,7 +49,7 @@ const QuestionsList = ({ questions, setQuestions }) => {
   const addQuestion = () => {
     const maxId = questions.length > 0 ? Math.max(...questions.map(q => q.id)) : 0;
     const newQuestion = {
-      id: maxId + 1,
+      id: maxId + 1, 
       question: '',
       type: 'radio',
       options: [{ value: '' }],
@@ -59,24 +59,8 @@ const QuestionsList = ({ questions, setQuestions }) => {
 
   const deleteQuestion = (index) => {
     let updatedQuestions = questions.filter((_, i) => i !== index);
-    updatedQuestions = updatedQuestions.map((question, i) => ({ ...question, id: i + 1 }));
+    updatedQuestions = updatedQuestions.map((question, i) => ({ ...question, id: i + 1 })); 
     setQuestions(updatedQuestions);
-  };
-
-  const validateForm = () => {
-    for (let question of questions) {
-      if (question.question === '') {
-        alert('Please fill in all question fields.');
-        return false;
-      }
-      for (let option of question.options) {
-        if (option.value === '') {
-          alert('Please fill in all option fields.');
-          return false;
-        }
-      }
-    }
-    return true;
   };
 
   const renderInputField = (question, questionIndex) => {
@@ -141,8 +125,6 @@ const QuestionsList = ({ questions, setQuestions }) => {
   };
 
   const handleCreateForm = async () => {
-    if (!validateForm()) return;
-
     setSaving(true);
 
     const auth = getAuth();
@@ -155,7 +137,7 @@ const QuestionsList = ({ questions, setQuestions }) => {
     }
 
     try {
-      const userDocRef = doc(collection(db, 'users'), user.uid);
+      const userDocRef = doc(collection(db, 'users'), user.uid); 
       const formsCollectionRef = collection(userDocRef, 'forms');
 
       await addDoc(formsCollectionRef, {
