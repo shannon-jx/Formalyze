@@ -1,22 +1,9 @@
 import React, { useEffect } from 'react';
-import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import * as firebaseui from 'firebaseui';
-import { getFirestore, setDoc, doc } from 'firebase/firestore';
+import { setDoc, doc } from 'firebase/firestore';
+import { db, auth } from '../firebase';
 import 'firebaseui/dist/firebaseui.css';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDkRl-rXPp3nCHwxrP3yfY0eAXnh_fmk30",
-  authDomain: "formalyze-ec725.firebaseapp.com",
-  projectId: 'formalyze-ec725',
-  storageBucket: "formalyze-ec725.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "1:1037229349268:web:ac131cca3befa5edced781",
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
 
 const uiConfig = {
   signInOptions: [
@@ -31,8 +18,6 @@ function Login() {
     const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(auth);
     ui.start('#firebaseui-auth-container', uiConfig);
   }, []);
-
-
 
   const ProviderSignIn = async () => {
     const provider = new GoogleAuthProvider();
