@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Register.css';
+// import { createUserWithEmailAndPassword } from 'firebase/auth';
+// import { auth } from './firebase';
 
 const Register = () => {
   const [credentials, setCredentials] = useState({
@@ -14,16 +16,27 @@ const Register = () => {
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle registration logic here
-    if (credentials.password !== credentials.confirmPassword) {
-      alert('Passwords do not match!');
-      return;
-    }
-    console.log('Registration submitted:', credentials);
-    alert('Registration successful!'); // Replace with actual registration logic
+  const handleSubmit = async (e) => {
+    // e.preventDefault();
+    // if (credentials.password !== credentials.confirmPassword) {
+    //   alert('Passwords do not match!');
+    //   return;
+    // }
+
+    // try {
+    //   const userCredential = await createUserWithEmailAndPassword(
+    //     auth,
+    //     credentials.email,
+    //     credentials.password
+    //   );
+    //   console.log('Registration successful:', userCredential);
+    //   alert('Registration successful!');
+    // } catch (error) {
+    //   console.error('Error during registration:', error);
+    //   alert('Error during registration: ' + error.message);
+    // }
   };
+
 
   return (
     <div className="register">
