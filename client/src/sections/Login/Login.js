@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import * as firebaseui from 'firebaseui';
+import { getFirestore, setDoc, doc } from 'firebase/firestore';
 import 'firebaseui/dist/firebaseui.css';
 
 const firebaseConfig = {
@@ -15,13 +16,13 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-
+const db = getFirestore(app);
 
 const uiConfig = {
   signInOptions: [
     "google.com",
   ],
-  signInSuccessUrl: '../Home', 
+  signInSuccessUrl: '../Home',
   signInFlow: 'popup',
 };
 
@@ -33,36 +34,36 @@ function Login() {
 
 
 
- function  ProviderSignIn(){
+  const ProviderSignIn = async () => {
     const provider = new GoogleAuthProvider();
 
-    const signInWithProvider = async ()=>
-   { 
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      console.log("User signed in:", user);
-    }
-    catch (error){
+
+      await setDoc(doc(db, 'users', user.uid), {
+        uid: user.uid,
+        name: user.displayName,
+        email: user.email,
+      });
+
+      console.log("User signed in and saved:", user);
+    } catch (error) {
       console.error("Error during sign-in:", error);
     }
-  }
-
- }
-  
-
+  };
 
   return (
-    <div style={{ 
-      display: 'flex', 
-      flexDirection: 'column', 
-      alignItems: 'center', 
-      justifyContent: 'center', 
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
       minHeight: '100vh'
     }}>
       <h1>Login</h1>
-      <div id="firebaseui-auth-container"></div>
-
+      {/* <div id="firebaseui-auth-container" onClick={ProviderSignIn}></div> */}
+      <button onClick={ProviderSignIn}>Sign in with Google</button>
     </div>
   );
 }
