@@ -9,6 +9,7 @@ import Contact from './sections/Contact/Contact';
 import FAQ from './sections/FAQ/FAQ';
 import Login from './sections/Login/Login';
 import Register from './sections/Register/Register';
+import FetchData from './sections/UserResponse/ListContent';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/fetch-data" element={<FetchData />} />
         </Routes>
       </div>
     </Router>
