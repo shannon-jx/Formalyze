@@ -1,0 +1,33 @@
+.form-responses-container {
+    margin: 20px;
+}
+
+.questions-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.question-item {
+    margin: 10px 0;
+}
+
+.responses-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.responses-table th,
+.responses-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.responses-table th {
+    background-color: #f2f2f2;
+}
+
+.responses-table td {
+    vertical-align: top;
+}
