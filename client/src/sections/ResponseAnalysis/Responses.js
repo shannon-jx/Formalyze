@@ -33,6 +33,7 @@ const Responses = ({ formId }) => {
           id: doc.id,
           ...doc.data()
         }));
+        console.log('Responses: ' + Array.toString(responses));
         setResponses(responses);
 
       } catch (error) {
