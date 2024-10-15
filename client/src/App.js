@@ -10,7 +10,6 @@ import FAQ from './sections/FAQ/FAQ';
 import Login from './sections/Login/Login';
 import Register from './sections/Register/Register';
 import CreateForm from './sections/CreateForm/CreateForm';
-import Responses from './sections/ResponseAnalysis/Responses';
 
 function App() {
   return (
@@ -27,7 +26,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/create-form" element={<CreateForm />} />
-          <Route path="/form/:formId" element={<Responses />} />
         </Routes>
       </div>
     </Router>
