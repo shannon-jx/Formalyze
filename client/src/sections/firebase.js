@@ -9,8 +9,9 @@ const firebaseConfig = {
   authDomain: "formalyze-ec725.firebaseapp.com",
   projectId: 'formalyze-ec725',
   storageBucket: "formalyze-ec725.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  messagingSenderId: "1037229349268",
   appId: "1:1037229349268:web:ac131cca3befa5edced781",
+  measurementId: "G-GNX6BVZ069"
 };
 
 // Initialize Firebase
