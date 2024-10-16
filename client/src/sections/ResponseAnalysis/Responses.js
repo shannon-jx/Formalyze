@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
-import { getAuth } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useParams } from 'react-router-dom';
 import './Responses.css';
 
@@ -10,50 +10,63 @@ const Responses = () => {
   const [formQuestions, setFormQuestions] = useState([]);
   const [responses, setResponses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null); 
 
   const auth = getAuth();
-  const user = auth.currentUser;
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);  
+      } else {
+        setUser(null);
+        console.log('User is logged out');
+        alert('Please log in to view the form responses.');
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth]);
 
   useEffect(() => {
     const fetchFormData = async () => {
-      if (!user) return;
+      if (!user) return; 
       try {
-        // Fetch form questions
         const formDocRef = doc(db, 'users', user.uid, 'forms', formId);
         const formDoc = await getDoc(formDocRef);
-        console.log('Form Document:', formDoc.data());  // Log form document data
-  
         if (formDoc.exists()) {
           const formData = formDoc.data();
           setFormQuestions(formData.questions || []);
         } else {
           console.error('Form not found');
         }
-  
-        // Fetch form responses
+
         const responsesCollectionRef = collection(db, 'users', user.uid, 'forms', formId, 'responses');
         const responsesSnapshot = await getDocs(responsesCollectionRef);
-        console.log('Responses Snapshot:', responsesSnapshot.docs.map(doc => doc.data()));  // Log response documents
-  
         const responses = responsesSnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data(),
         }));
         setResponses(responses);
-  
+
       } catch (error) {
         console.error('Error fetching form data:', error);
       } finally {
         setLoading(false);
       }
     };
-  
-    fetchFormData();
+
+    if (user) {
+      fetchFormData();
+    }
   }, [formId, user]);
-  
 
   if (loading) {
     return <p>Loading form data...</p>;
+  }
+
+  if (!user) {
+    return <p>Please log in to view the form responses.</p>;
   }
 
   if (formQuestions.length === 0) {
