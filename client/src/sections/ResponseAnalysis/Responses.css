@@ -1,33 +1,102 @@
-.form-responses-container {
-    margin: 20px;
+/* General Container */
+.admin-overview-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
 }
 
-.questions-list {
-    list-style-type: none;
-    padding: 0;
+/* Header Section */
+.admin-header {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-.question-item {
-    margin: 10px 0;
+.admin-header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.admin-header p {
+    font-size: 18px;
+    color: gray;
+}
+
+/* Overview Section */
+.overview-section {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+
+.overview-card {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.overview-card h2 {
+    font-size: 40px;
+    margin-bottom: 5px;
+}
+
+.overview-card p {
+    font-size: 18px;
+    color: gray;
+}
+
+/* Responses Section */
+.responses-section {
+    margin-top: 30px;
+}
+
+.responses-section h3 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .responses-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .responses-table th,
 .responses-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+    padding: 15px;
+    border: 1px solid #dee2e6;
+    text-align: center;
 }
 
 .responses-table th {
-    background-color: #f2f2f2;
+    background-color: #f1f1f1;
+    font-weight: bold;
 }
 
 .responses-table td {
-    vertical-align: top;
+    background-color: #fff;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .overview-section {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .responses-section h3 {
+        font-size: 24px;
+    }
+    
+    .responses-table th, .responses-table td {
+        font-size: 14px;
+    }
 }
