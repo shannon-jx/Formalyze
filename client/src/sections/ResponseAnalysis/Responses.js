@@ -4,20 +4,23 @@ import { db } from '../firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useParams } from 'react-router-dom';
 import './Responses.css';
+import ResultsTab from './Components/ResultsTab';
+import AnalysisTab from './Components/AnalysisTab';
 
 const Responses = () => {
   const { formId } = useParams();
   const [formQuestions, setFormQuestions] = useState([]);
   const [responses, setResponses] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null); 
+  const [user, setUser] = useState(null);
+  const [activeTab, setActiveTab] = useState('results');
 
   const auth = getAuth();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUser(user);  
+        setUser(user);
       } else {
         setUser(null);
         console.log('User is logged out');
@@ -30,7 +33,7 @@ const Responses = () => {
 
   useEffect(() => {
     const fetchFormData = async () => {
-      if (!user) return; 
+      if (!user) return;
       try {
         const formDocRef = doc(db, 'users', user.uid, 'forms', formId);
         const formDoc = await getDoc(formDocRef);
@@ -73,6 +76,10 @@ const Responses = () => {
     return <p>No questions available in this form.</p>;
   }
 
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+
   return (
     <div className="admin-overview-container">
       <header className="admin-header">
@@ -80,44 +87,25 @@ const Responses = () => {
         <p>Total Responses: {responses.length}</p>
       </header>
 
-      <section className="overview-section">
-        <div className="overview-card">
-          <h2>{responses.length}</h2>
-          <p>Total Responses</p>
+      <div className="tab-navigation">
+        <div className={`tab-item ${activeTab === 'results' ? 'active' : ''}`} onClick={() => handleTabClick('results')}>
+          Results
         </div>
-        <div className="overview-card">
-          <h2>{formQuestions.length}</h2>
-          <p>Total Questions</p>
+        <div className={`tab-item ${activeTab === 'analysis' ? 'active' : ''}`} onClick={() => handleTabClick('analysis')}>
+          Analysis
         </div>
-      </section>
+        <div className={`tab-slider ${activeTab}`} />
+      </div>
 
-      <section className="responses-section">
-        <h3>Collected Responses</h3>
-        {responses.length > 0 ? (
-          <table className="responses-table">
-            <thead>
-              <tr>
-                {formQuestions.map((question, index) => (
-                  <th key={question.id}>Q{index + 1}: {question.question}</th>
-                ))}
-                <th>User ID</th>
-              </tr>
-            </thead>
-            <tbody>
-              {responses.map((response) => (
-                <tr key={response.id}>
-                  {formQuestions.map((question, index) => (
-                    <td key={index}>{response[`Q${index + 1}`] || 'No response'}</td>
-                  ))}
-                  <td>{response.userId}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p>No responses available for this form.</p>
+      <div className="tab-content">
+        {activeTab === 'results' && (
+          <ResultsTab formQuestions={formQuestions} responses={responses} />
         )}
-      </section>
+
+        {activeTab === 'analysis' && (
+          <AnalysisTab />
+        )}
+      </div>
     </div>
   );
 };

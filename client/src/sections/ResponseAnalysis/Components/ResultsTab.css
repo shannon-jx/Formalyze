@@ -1,0 +1,50 @@
+.results-tab {
+    margin-top: 20px;
+}
+
+.overview-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.overview-card {
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    flex-basis: 48%;
+    text-align: center;
+}
+
+.overview-card h2 {
+    margin: 0;
+    color: #000000;
+}
+
+.overview-card p {
+    margin: 5px 0 0;
+    color: #555;
+}
+
+.results-section {
+    margin-top: 20px;
+}
+
+.responses-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.responses-table th,
+.responses-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.responses-table th {
+    background-color: #f9f9f9;
+}
+
+.responses-table td {
+    text-align: center;
+}
