@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import './Header.css';
-import { db } from '../firebase';
-
 
 const Header = () => {
   const navigate = useNavigate();
@@ -40,7 +38,7 @@ const Header = () => {
           <li className="nav-item"><Link to="/pricing">Pricing</Link></li>
           <li className="nav-item"><Link to="/contact">Contact Us</Link></li>
           <li className="nav-item"><Link to="/faq">FAQ</Link></li>
-          <li className="nav-item"><Link to="/surveys">Surveys</Link></li> {/* Added Surveys link */}
+          <li className="nav-item"><Link to="/forms">Forms</Link></li>
         </ul>
 
         {user ? (

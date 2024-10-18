@@ -11,7 +11,6 @@ import Login from './sections/Login/Login';
 import Register from './sections/Register/Register';
 import CreateForm from './sections/CreateForm/CreateForm';
 import SurveyList from './sections/SurveyList/SurveyList';
-import SurveyView from './sections/SurveyList/SurveyView';
 import SurveyEdit from './sections/SurveyList/SurveyEdit';
 import Responses from './sections/ResponseAnalysis/Responses';
 import UserReponse from './sections/UserResponse/ListContent';
@@ -30,9 +29,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/create-form" element={<CreateForm />} />
-          <Route path="/surveys" element={<SurveyList />} />
-          <Route path="/survey/:id" element={<SurveyView />} />
-          <Route path="/survey/edit/:id" element={<SurveyEdit />} />
+          <Route path="/forms" element={<SurveyList />} />
+          <Route path="/forms/edit/:id" element={<SurveyEdit />} />
           <Route path="/forms/:formId" element={<Responses />} />
           <Route path="/user-response/:userId/:formId" element={<UserReponse />} />
         </Routes>
