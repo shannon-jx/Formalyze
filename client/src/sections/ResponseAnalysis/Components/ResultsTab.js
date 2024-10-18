@@ -32,18 +32,19 @@ const ResultsTab = ({ formQuestions, responses }) => {
                 <tr key={response.id}>
                   {formQuestions.map((question, index) => (
                     <td key={index}>
-                      {Array.isArray(response[`Q${index + 1}`])
-                        ? 
-                          question.type !== 'checkbox'
-                          ? response[`Q${index + 1}`][0] || 'No response'
-                          : (
-                            <ul>
-                              {response[`Q${index + 1}`].map((item, i) => (
-                                <li key={i}>{item}</li>
-                              ))}
-                            </ul>
-                          )
-                        : 'No response'}
+                      {Array.isArray(response[`Q${index + 1}`]) ? (
+                        question.type === 'checkbox' ? (
+                          <ul>
+                            {response[`Q${index + 1}`].map((item, i) => (
+                              <li key={i}>{item}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          response[`Q${index + 1}`][0] || 'No response'
+                        )
+                      ) : (
+                        response[`Q${index + 1}`] || 'No response'
+                      )}
                     </td>
                   ))}
                   <td>{response.userId}</td>
