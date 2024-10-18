@@ -1,23 +1,23 @@
 import React, { useEffect } from 'react';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import * as firebaseui from 'firebaseui';
+// import * as firebaseui from 'firebaseui';
 import { setDoc, doc } from 'firebase/firestore';
 import { db, auth } from '../firebase';
-import 'firebaseui/dist/firebaseui.css';
+// import 'firebaseui/dist/firebaseui.css';
 
-const uiConfig = {
-  signInOptions: [
-    "google.com",
-  ],
-  signInSuccessUrl: '../Home',
-  signInFlow: 'popup',
-};
+// const uiConfig = {
+//   signInOptions: [
+//     "google.com",
+//   ],
+//   signInSuccessUrl: '../Home',
+//   signInFlow: 'popup',
+// };
 
 function Login() {
-  useEffect(() => {
-    const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(auth);
-    ui.start('#firebaseui-auth-container', uiConfig);
-  }, []);
+  // useEffect(() => {
+  //   const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(auth);
+  //   ui.start('#firebaseui-auth-container', uiConfig);
+  // }, []);
 
   const ProviderSignIn = async () => {
     const provider = new GoogleAuthProvider();
