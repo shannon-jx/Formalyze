@@ -13,8 +13,11 @@ import CreateForm from './sections/CreateForm/CreateForm';
 import SurveyList from './sections/SurveyList/SurveyList';
 import SurveyView from './sections/SurveyList/SurveyView';
 import SurveyEdit from './sections/SurveyList/SurveyEdit';
+<<<<<<< HEAD
 import Responses from './sections/ResponseAnalysis/Responses';
 import UserReponse from './sections/UserResponse/ListContent';
+=======
+>>>>>>> 74717d08ccd9f864fb7e79452595284046dc7690
 
 function App() {
   return (
@@ -34,8 +37,11 @@ function App() {
           <Route path="/surveys" element={<SurveyList />} />
           <Route path="/survey/:id" element={<SurveyView />} />
           <Route path="/survey/edit/:id" element={<SurveyEdit />} />
+<<<<<<< HEAD
           <Route path="/forms/:formId" element={<Responses />} />
           <Route path="/user-response/:userId/:formId" element={<UserReponse />} />
+=======
+>>>>>>> 74717d08ccd9f864fb7e79452595284046dc7690
         </Routes>
       </div>
     </Router>
