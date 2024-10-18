@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './CreateForm.css';
-import QuestionsList from './QuestionsList';  // Importing the new component
+import QuestionsList from './QuestionsList'; 
 
 const CreateForm = () => {
   const [message, setMessage] = useState('');

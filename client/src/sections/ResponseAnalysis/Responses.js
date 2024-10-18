@@ -84,7 +84,6 @@ const Responses = () => {
     <div className="admin-overview-container">
       <header className="admin-header">
         <h1>Form Overview</h1>
-        <p>Total Responses: {responses.length}</p>
       </header>
 
       <div className="tab-navigation">
@@ -103,7 +102,7 @@ const Responses = () => {
         )}
 
         {activeTab === 'analysis' && (
-          <AnalysisTab />
+          <AnalysisTab formQuestions={formQuestions} responses={responses} />
         )}
       </div>
     </div>

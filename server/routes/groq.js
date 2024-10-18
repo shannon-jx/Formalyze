@@ -43,4 +43,47 @@ router.post('/generate-questions', async (req, res) => {
   }
 });
 
+router.post('/analyze-sentiment', async (req, res) => {
+  const { responses, formQuestions } = req.body; // Expect both responses and formQuestions to be sent from the frontend
+
+  try {
+    const promptContent = `
+      Perform sentiment analysis on the following survey responses: ${JSON.stringify(responses)}.
+      Here are the form questions: ${JSON.stringify(formQuestions)}.
+    `;
+    console.log('Prompt Content: ' + promptContent);
+
+    const sentimentAnalysis = await groq.chat.completions.create({
+      messages: [
+        {
+          role: 'user',
+          content: promptContent, 
+        },
+      ],
+      model: 'llama3-8b-8192',
+      temperature: 0.7,
+      max_tokens: 1024,
+      top_p: 1,
+      stream: false,
+      response_format: {
+        type: 'json_object',
+      },
+      stop: null,
+    });
+
+    const responseMessage =
+      sentimentAnalysis.choices[0]?.message?.content || 'No sentiment analysis result';
+
+    const firstBraceIndex = responseMessage.indexOf('{');
+    const lastBraceIndex = responseMessage.lastIndexOf('}');
+    const jsonString = responseMessage.substring(firstBraceIndex, lastBraceIndex + 1);
+    const jsonParsed = JSON.parse(jsonString);
+    
+    res.json({ analysis: jsonParsed });
+  } catch (error) {
+    console.error('Error performing sentiment analysis:', error);
+    res.status(500).json({ error: 'Error performing sentiment analysis' });
+  }
+});
+
 module.exports = router;
