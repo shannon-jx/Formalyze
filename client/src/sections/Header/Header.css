@@ -35,7 +35,8 @@
     color: #aaa;
 }
 
-.login-button {
+.login-button,
+.logout-button {
     background-color: transparent;
     color: #fff;
     border: 1px solid #fff;
@@ -45,7 +46,19 @@
     transition: all 0.3s ease;
 }
 
-.login-button:hover {
+.login-button:hover,
+.logout-button:hover {
     background-color: #fff;
     color: #000;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-name {
+    color: #fff;
+    margin-right: 20px;
+    font-size: 16px;
 }
