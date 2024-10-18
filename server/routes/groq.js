@@ -28,6 +28,8 @@ router.post('/generate-questions', async (req, res) => {
         stop: null
     });
 
+
+    
     const responseMessage =
       chatCompletion.choices[0]?.message?.content || 'No response';
 
@@ -85,5 +87,37 @@ router.post('/analyze-sentiment', async (req, res) => {
     res.status(500).json({ error: 'Error performing sentiment analysis' });
   }
 });
+
+
+
+
+router.post('/generate-questions-title', async (req, res) => {
+  const { message } = req.body;
+
+  try {
+    const chatCompletion = await groq.chat.completions.create({
+        messages: [
+            {
+            role: "user",
+            content: `Generate a title for a survey form, the purpose of the form is ${message}. The title should be a short, concise, and informative title. Respond with only the title. remove any quotes marks.`,
+            },
+        ],
+        model: "llama3-8b-8192", 
+        temperature: 1,
+        max_tokens: 8192,
+        top_p: 1,
+        stream: false,
+        stop: null
+    });
+    
+    const responseMessage = chatCompletion.choices[0].message.content || 'No Title Generated';
+    // console.log(responseMessage)
+      res.json({ title: responseMessage });
+  } catch (error) {
+    console.error('Error generating chat:', error);
+    res.status(500).json({ error: 'Error generating chat' });
+  }
+});
+
 
 module.exports = router;
