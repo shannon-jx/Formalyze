@@ -1,38 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import * as firebaseui from 'firebaseui';
-import { setDoc, doc } from 'firebase/firestore';
-import { db, auth } from '../firebase';
-import 'firebaseui/dist/firebaseui.css';
-
-const uiConfig = {
-  signInOptions: [
-    "google.com",
-  ],
-  signInSuccessUrl: '../Home',
-  signInFlow: 'popup',
-};
+import { auth } from '../firebase';
 
 function Login() {
-  useEffect(() => {
-    const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(auth);
-    ui.start('#firebaseui-auth-container', uiConfig);
-  }, []);
-
-  const ProviderSignIn = async () => {
+  const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
 
     try {
       const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-
-      await setDoc(doc(db, 'users', user.uid), {
-        uid: user.uid,
-        name: user.displayName,
-        email: user.email,
-      });
-
-      console.log("User signed in and saved:", user);
+      console.log("User signed in:", result.user);
+      // Redirect to home page or update UI as needed
     } catch (error) {
       console.error("Error during sign-in:", error);
     }
@@ -47,8 +24,7 @@ function Login() {
       minHeight: '100vh'
     }}>
       <h1>Login</h1>
-      {/* <div id="firebaseui-auth-container" onClick={ProviderSignIn}></div> */}
-      <button onClick={ProviderSignIn}>Sign in with Google</button>
+      <button onClick={signInWithGoogle}>Sign in with Google</button>
     </div>
   );
 }

@@ -10,6 +10,9 @@ import FAQ from './sections/FAQ/FAQ';
 import Login from './sections/Login/Login';
 import Register from './sections/Register/Register';
 import CreateForm from './sections/CreateForm/CreateForm';
+import SurveyList from './sections/SurveyList/SurveyList';
+import SurveyView from './sections/SurveyList/SurveyView';
+import SurveyEdit from './sections/SurveyList/SurveyEdit';
 
 function App() {
   return (
@@ -26,6 +29,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/create-form" element={<CreateForm />} />
+          <Route path="/surveys" element={<SurveyList />} />
+          <Route path="/survey/:id" element={<SurveyView />} />
+          <Route path="/survey/edit/:id" element={<SurveyEdit />} />
         </Routes>
       </div>
     </Router>

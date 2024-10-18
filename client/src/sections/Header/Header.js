@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
+import { db } from '../firebase';
+
 
 const Header = () => {
   return (
@@ -10,11 +12,12 @@ const Header = () => {
           <img className="w-[20px]" src="assets/common/logo_without_slogan.jpg" alt="Logo" />
         </div>
         <ul className="nav-list">
-          <li className="nav-item"><a href="/home">Home</a></li>
-          <li className="nav-item"><a href="/features">Features</a></li>
-          <li className="nav-item"><a href="/pricing">Pricing</a></li>
-          <li className="nav-item"><a href="/contact">Contact Us</a></li>
-          <li className="nav-item"><a href="/faq">FAQ</a></li>
+          <li className="nav-item"><Link to="/home">Home</Link></li>
+          <li className="nav-item"><Link to="/features">Features</Link></li>
+          <li className="nav-item"><Link to="/pricing">Pricing</Link></li>
+          <li className="nav-item"><Link to="/contact">Contact Us</Link></li>
+          <li className="nav-item"><Link to="/faq">FAQ</Link></li>
+          <li className="nav-item"><Link to="/surveys">Surveys</Link></li> {/* Added Surveys link */}
         </ul>
         <Link to="/login">
           <button className="login-button">Login</button>
