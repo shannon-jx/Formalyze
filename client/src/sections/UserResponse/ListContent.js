@@ -2,25 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { collection, addDoc, doc, getDoc } from 'firebase/firestore';
 import './ListContent.css';
 import {db} from '../firebase'; 
+import { useParams } from 'react-router-dom';
 
-const FetchData = () => {
+const UserReponse = () => {
+    const { userId, formId } = useParams();
     const [data, setData] = useState([]);
     const [formResponses, setFormResponses] = useState({});
-    const userid = "4erRSCcQXnb9BQ8DkWuoeii5Wsw2";
-
+    
     useEffect(() => {
-        const fetchData = async () => {
-            const parentRef = doc(db, 'users', '4erRSCcQXnb9BQ8DkWuoeii5Wsw2');
+        
+        const UserReponse = async () => {    
+            const parentRef = doc(db, 'users', userId);
             const subcollectionRef = collection(parentRef, 'forms');
-            const docRef = doc(subcollectionRef, 'Snzkkr39WpPrJcSbRqlM');
+            const docRef = doc(subcollectionRef, formId);
             const fetchedData = await getDoc(docRef);
             setData(fetchedData.data());
 
         };
-        fetchData();
+        UserReponse();
 
 
-    }, []);
+    }, [userId, formId]);
 
     const handleCheckboxChange = (questionId, value, checked) => {
         setFormResponses(prevResponses => {
@@ -106,9 +108,9 @@ const FetchData = () => {
         console.log("Current formResponses:", formResponses);
 
         try {
-            const userDocRef = doc(db, 'users', userid);
+            const userDocRef = doc(db, 'users', userId);
             const formsCollectionRef = collection(userDocRef, 'forms');
-            const formDocRef = doc(formsCollectionRef, "Snzkkr39WpPrJcSbRqlM");
+            const formDocRef = doc(formsCollectionRef, formId);
             const formData = collection(formDocRef, 'response');
             
             console.log("Attempting to add document to Firestore");
@@ -147,4 +149,4 @@ const FetchData = () => {
     );
 };
 
-export default FetchData;
+export default UserReponse;
