@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, getDocs, doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase';
-import { getAuth } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import './SurveyList.css';
 
@@ -9,22 +9,41 @@ function SurveyList() {
   const [surveys, setSurveys] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [user, setUser] = useState(null); 
   const navigate = useNavigate();
 
   useEffect(() => {
+    const auth = getAuth();
+
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser); 
+      } else {
+        setUser(null);
+        setLoading(false);
+        setError('User not authenticated');
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
     const fetchSurveys = async () => {
+      if (!user) return;
       try {
-        const auth = getAuth();
-        const user = auth.currentUser;
-
-        if (!user) {
-          throw new Error('User not authenticated');
-        }
-
         const q = query(collection(db, 'users', user.uid, 'forms'));
         const querySnapshot = await getDocs(q);
-        const surveyList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setSurveys(surveyList);
+        const surveysWithResponses = await Promise.all(
+          querySnapshot.docs.map(async (formDoc) => {
+            const formData = { id: formDoc.id, ...formDoc.data() };
+            const responsesQuery = query(collection(db, 'users', user.uid, 'forms', formDoc.id, 'responses'));
+            const responsesSnapshot = await getDocs(responsesQuery);
+            const responses = responsesSnapshot.docs.map(doc => doc.data());
+            return { ...formData, responses: responses || [] }; 
+          })
+        );
+        setSurveys(surveysWithResponses);
         setLoading(false);
       } catch (err) {
         console.error("Error fetching surveys: ", err);
@@ -34,14 +53,14 @@ function SurveyList() {
     };
 
     fetchSurveys();
-  }, []);
+  }, [user]);
 
   const handleView = (id) => {
-    navigate(`/survey/${id}`);
+    navigate(`/forms/${id}`);
   };
 
   const handleEdit = (id) => {
-    navigate(`/survey/edit/${id}`);
+    navigate(`/forms/edit/${id}`);
   };
 
   const handleDelete = async (id) => {
@@ -64,7 +83,7 @@ function SurveyList() {
   };
 
   if (loading) {
-    return <div className="loading">Loading surveys...</div>;
+    return <div className="loading">Loading forms...</div>;
   }
 
   if (error) {
@@ -73,22 +92,26 @@ function SurveyList() {
 
   return (
     <div className="survey-list-container">
-      <h1>Your Surveys</h1>
+      <h1>Your Forms</h1>
       {surveys.length === 0 ? (
-        <div className="no-surveys">You haven't created any surveys yet.</div>
+        <div className="no-surveys">You haven't created any forms yet.</div>
       ) : (
         <div className="survey-grid">
           {surveys.map(survey => (
-            <div key={survey.id} className="survey-card">
-              <h2>{survey.title || 'Untitled Survey'}</h2>
+            <div
+              key={survey.id}
+              className="survey-card"
+              onClick={() => handleView(survey.id)}
+              style={{ cursor: 'pointer' }}
+            >
+              <h2>{survey.title || 'Untitled Form'}</h2>
               <div className="survey-stats">
                 <span>{survey.questions?.length || 0} questions</span>
-                <span>{survey.responses?.length || 0} responses</span>
+                <span>{survey.responses?.length || 0} responses</span> 
               </div>
               <div className="survey-actions">
-                <button onClick={() => handleView(survey.id)}>View</button>
-                <button onClick={() => handleEdit(survey.id)}>Edit</button>
-                <button onClick={() => handleDelete(survey.id)}>Delete</button>
+                <button onClick={(e) => { e.stopPropagation(); handleEdit(survey.id); }}>Edit</button>
+                <button onClick={(e) => { e.stopPropagation(); handleDelete(survey.id); }}>Delete</button>
               </div>
             </div>
           ))}

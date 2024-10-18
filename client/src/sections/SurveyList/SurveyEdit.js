@@ -64,7 +64,7 @@ function SurveyEdit() {
         questions: survey.questions,
       });
 
-      navigate(`/survey/${id}`);
+      navigate(`/forms/${id}`);
     } catch (err) {
       console.error("Error updating survey: ", err);
       setError(err.message);
@@ -72,7 +72,7 @@ function SurveyEdit() {
   };
 
   if (loading) {
-    return <div>Loading survey...</div>;
+    return <div>Loading form...</div>;
   }
 
   if (error) {
@@ -81,12 +81,12 @@ function SurveyEdit() {
 
   return (
     <div className="survey-edit">
-      <h1>Edit Survey</h1>
+      <h1>Edit Form</h1>
       <input
         type="text"
         value={survey.title || ''}
         onChange={handleTitleChange}
-        placeholder="Survey Title"
+        placeholder="Form Title"
       />
       <div className="questions">
         {survey.questions && survey.questions.map((question, index) => (
@@ -129,8 +129,8 @@ function SurveyEdit() {
           </div>
         ))}
       </div>
-      <button onClick={handleSave}>Save Survey</button>
-      <button onClick={() => navigate(`/survey/${id}`)}>Cancel</button>
+      <button onClick={handleSave}>Save Form</button>
+      <button onClick={() => navigate(`/forms/${id}`)}>Cancel</button>
     </div>
   );
 }
