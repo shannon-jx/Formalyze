@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { getAuth } from 'firebase/auth';
+import './SurveyEdit.css'; // Add this import for custom styles
 
 function SurveyEdit() {
   const [survey, setSurvey] = useState(null);
@@ -50,6 +51,20 @@ function SurveyEdit() {
     setSurvey({ ...survey, questions: updatedQuestions });
   };
 
+  const addQuestion = () => {
+    const newQuestion = {
+      text: '',
+      type: 'text',
+      options: []
+    };
+    setSurvey({ ...survey, questions: [...survey.questions, newQuestion] });
+  };
+
+  const deleteQuestion = (index) => {
+    const updatedQuestions = survey.questions.filter((_, i) => i !== index);
+    setSurvey({ ...survey, questions: updatedQuestions });
+  };
+
   const handleSave = async () => {
     try {
       const auth = getAuth();
@@ -80,57 +95,92 @@ function SurveyEdit() {
   }
 
   return (
-    <div className="survey-edit">
-      <h1>Edit Form</h1>
-      <input
-        type="text"
-        value={survey.title || ''}
-        onChange={handleTitleChange}
-        placeholder="Form Title"
-      />
-      <div className="questions">
-        {survey.questions && survey.questions.map((question, index) => (
-          <div key={index} className="question">
-            <input
-              type="text"
-              value={question.text}
-              onChange={(e) => handleQuestionChange(index, 'text', e.target.value)}
-              placeholder="Question Text"
-            />
-            <select
-              value={question.type}
-              onChange={(e) => handleQuestionChange(index, 'type', e.target.value)}
-            >
-              <option value="text">Text</option>
-              <option value="multipleChoice">Multiple Choice</option>
-              <option value="checkbox">Checkbox</option>
-            </select>
-            {(question.type === 'multipleChoice' || question.type === 'checkbox') && (
-              <div className="options">
-                {question.options && question.options.map((option, optionIndex) => (
-                  <input
-                    key={optionIndex}
-                    type="text"
-                    value={option}
-                    onChange={(e) => {
-                      const updatedOptions = [...question.options];
-                      updatedOptions[optionIndex] = e.target.value;
+    <div className="survey-edit-container">
+      <h1 className="survey-edit-title">Edit Form: {survey.title}</h1>
+      <div className="survey-edit-form">
+        <div className="form-group">
+          <label htmlFor="formTitle">Form Title</label>
+          <input
+            id="formTitle"
+            type="text"
+            value={survey.title || ''}
+            onChange={handleTitleChange}
+            placeholder="Enter form title"
+            className="form-control"
+          />
+        </div>
+        <div className="questions-container">
+          <h2>Questions</h2>
+          {survey.questions && survey.questions.map((question, index) => (
+            <div key={index} className="question-card">
+              <div className="question-header">
+                <h3>Question {index + 1}</h3>
+                <button onClick={() => deleteQuestion(index)} className="btn btn-danger">Delete</button>
+              </div>
+              <div className="form-group">
+                <label htmlFor={`question-${index}`}>Question {index + 1}</label>
+                <input
+                  id={`question-${index}`}
+                  type="text"
+                  value={question.text}
+                  onChange={(e) => handleQuestionChange(index, 'text', e.target.value)}
+                  placeholder="Enter question text"
+                  className="form-control"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor={`question-type-${index}`}>Question Type</label>
+                <select
+                  id={`question-type-${index}`}
+                  value={question.type}
+                  onChange={(e) => handleQuestionChange(index, 'type', e.target.value)}
+                  className="form-control"
+                >
+                  <option value="text">Text</option>
+                  <option value="multipleChoice">Multiple Choice</option>
+                  <option value="checkbox">Checkbox</option>
+                </select>
+              </div>
+              {(question.type === 'multipleChoice' || question.type === 'checkbox') && (
+                <div className="options-container">
+                  <h3>Options</h3>
+                  {question.options && question.options.map((option, optionIndex) => (
+                    <div key={optionIndex} className="form-group">
+                      <label htmlFor={`option-${index}-${optionIndex}`}>Option {optionIndex + 1}</label>
+                      <input
+                        id={`option-${index}-${optionIndex}`}
+                        type="text"
+                        value={option}
+                        onChange={(e) => {
+                          const updatedOptions = [...question.options];
+                          updatedOptions[optionIndex] = e.target.value;
+                          handleQuestionChange(index, 'options', updatedOptions);
+                        }}
+                        placeholder={`Enter option ${optionIndex + 1}`}
+                        className="form-control"
+                      />
+                    </div>
+                  ))}
+                  <button 
+                    onClick={() => {
+                      const updatedOptions = [...(question.options || []), ''];
                       handleQuestionChange(index, 'options', updatedOptions);
                     }}
-                    placeholder={`Option ${optionIndex + 1}`}
-                  />
-                ))}
-                <button onClick={() => {
-                  const updatedOptions = [...(question.options || []), ''];
-                  handleQuestionChange(index, 'options', updatedOptions);
-                }}>Add Option</button>
-              </div>
-            )}
-          </div>
-        ))}
+                    className="btn btn-secondary"
+                  >
+                    Add Option
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
+          <button onClick={addQuestion} className="btn btn-primary">Add Question</button>
+        </div>
+        <div className="button-group">
+          <button onClick={handleSave} className="btn btn-primary">Save Form</button>
+          <button onClick={() => navigate(`/forms/${id}`)} className="btn btn-secondary">Cancel</button>
+        </div>
       </div>
-      <button onClick={handleSave}>Save Form</button>
-      <button onClick={() => navigate(`/forms/${id}`)}>Cancel</button>
     </div>
   );
 }
