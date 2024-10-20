@@ -1,93 +1,170 @@
-.home-container {
+.app-container {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f3ea;
+    color: #1A1D20;
+    padding: 0;
+    margin: 0;
+}
+  
+.header {
+    display: flex;
+    justify-content: space-between;
     padding: 20px;
-    text-align: center;
 }
-
-.hero-section {
-    padding: 50px 0;
-    background-color: #f4f4f4;
-    border-radius: 8px;
-    margin-bottom: 40px;
+  
+.logo {
+    font-weight: bold;
+    font-size: 24px;
 }
-
-.hero-section h1 {
-    font-size: 3em;
-    margin-bottom: 20px;
-    color: black;
+  
+.nav-links a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #000;
 }
-
-.hero-section p {
-    font-size: 1.5em;
-    margin-bottom: 30px;
-    color: #555;
-}
-
-.cta-button {
-    background-color: black;
-    color: white;
-    padding: 15px 30px;
+  
+.create-form-btn {
+    background-color: #7a94ff;
+    color: #fff;
+    padding: 10px;
     border: none;
     cursor: pointer;
-    font-size: 1.2em;
-    transition: background-color 0.3s ease;
-    border-radius: 5px;
 }
-
-.cta-button:hover {
-    background-color: white;
-    color: black;
-    border: 1px solid black;
+  
+.main-content {
+    text-align: center;
 }
-
-.how-it-works-section,
-.features-section {
-    margin-bottom: 40px;
-}
-
-.how-it-works-section h2,
-.features-section h2,
-.cta-section h2 {
-    font-size: 2.5em;
-    margin-bottom: 20px;
-}
-
-.steps-grid,
-.features-grid {
+  
+.hero {
+    margin: 0px auto;
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 20px;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    text-align: center;
+    min-height: 80vh; /* Ensure the hero section takes up enough vertical space */
 }
 
-.step-card,
-.feature-card {
-    background-color: white;
-    padding: 20px;
-    width: 30%;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.hero img {
+    height: 700px
+}
+  
+.subtext {
+    font-size: 64px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+  
+.description {
+    max-width: 880px;
+    font-size: 24px;
+    margin: 20px auto;
+}
+  
+.create-form-btn-large {
+    background-color: #7a94ff;
+    color: #fff;
+    padding: 15px 30px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 250px;
+    align-items: center;
+    border-radius: 25px;
+}
+  
+.steps {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: top;
+    gap: 60px;
+    margin: 64px;
+}
+  
+.step {
+    max-width: 400px;
+    text-align: left;
+    font-size: 40px;
+    padding: 30px;
+    background-color: #7a94ff;
+    border-radius: 25px;
+}
+  
+.step-number {
+    font-size: 40px;
+    color: #1A1D20;
+    font-weight: bold;
+    margin-bottom: 16px;
+} 
+
+.step-title {
+    font-size: 40px;
+    font-weight: bold;
+    color: #fff;
+    line-height: 40px;
+    margin-bottom: 16px;
 }
 
-.step-card h3,
-.feature-card h3 {
-    margin-top: 0;
-    color: black;
+.step-des {
+    font: poppins;
+    font-size: 24px;
+    color: #fff;
+    margin: 0px;
 }
 
-.step-card p,
-.feature-card p {
-    font-size: 1.1em;
-    color: #555;
+.typewriter {
+  font-size: 96px;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 48px;
 }
 
-.cta-section {
-    background-color: #f4f4f4;
-    padding: 40px;
-    border-radius: 8px;
+.blinking-cursor {
+  font-weight: bold;
+  font-size: 96px;
+  margin-left: 3px;
+  animation: blink 0.9s infinite;
 }
 
-.cta-section p {
-    font-size: 1.3em;
-    margin-bottom: 20px;
-    color: #555;
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Make sure it appears on top */
+}
+
+.login-modal {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+  
+  
