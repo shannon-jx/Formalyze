@@ -4,8 +4,7 @@ import { db } from '../firebase';
 import { getAuth } from 'firebase/auth';
 import './CreateForm.css';
 import { FaTrash } from 'react-icons/fa';
-
-const QuestionsList = ({ questions, setQuestions }) => {
+const QuestionsList = ({ questions, setQuestions,title }) => {
   const [saving, setSaving] = useState(false);
 
   const handleQuestionChange = (index, newQuestion) => {
@@ -141,6 +140,7 @@ const QuestionsList = ({ questions, setQuestions }) => {
       const formsCollectionRef = collection(userDocRef, 'forms');
 
       await addDoc(formsCollectionRef, {
+        title: title,
         questions: questions,
         createdAt: new Date(),
       });

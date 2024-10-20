@@ -8,41 +8,46 @@ const UserReponse = () => {
     const { userId, formId } = useParams();
     const [data, setData] = useState([]);
     const [formResponses, setFormResponses] = useState({});
-    
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [isCurrentQuestionAnswered, setIsCurrentQuestionAnswered] = useState(false);
+
     useEffect(() => {
-        
-        const UserReponse = async () => {    
+        const fetchUserResponse = async () => {    
             const parentRef = doc(db, 'users', userId);
             const subcollectionRef = collection(parentRef, 'forms');
             const docRef = doc(subcollectionRef, formId);
             const fetchedData = await getDoc(docRef);
             setData(fetchedData.data());
-
         };
-        UserReponse();
-
-
+        fetchUserResponse();
     }, [userId, formId]);
 
-    const handleCheckboxChange = (questionId, value, checked) => {
+    useEffect(() => {
+        // Check if the current question has been answered
+        if (data.questions && data.questions[currentQuestionIndex]) {
+            const currentQuestionId = data.questions[currentQuestionIndex].id;
+            setIsCurrentQuestionAnswered(!!formResponses[currentQuestionId]);
+        }
+    }, [currentQuestionIndex, formResponses, data.questions]);
+
+    const handleInputChange = (questionId, value, isCheckbox = false) => {
         setFormResponses(prevResponses => {
-            const updatedCheckboxValues = Array.isArray(prevResponses[questionId]) ? prevResponses[questionId] : [];
-            if (checked) {
-                // Add value if it's checked
-                return {
+            const updatedResponses = isCheckbox
+                ? {
                     ...prevResponses,
-                    [questionId]: [...updatedCheckboxValues, value],
-                };
-            } else {
-                // Remove value if it's unchecked
-                return {
-                    ...prevResponses,
-                    [questionId]: updatedCheckboxValues.filter((val) => val !== value),
-                };
-            }
+                    [questionId]: Array.isArray(prevResponses[questionId])
+                        ? prevResponses[questionId].includes(value)
+                            ? prevResponses[questionId].filter(v => v !== value)
+                            : [...prevResponses[questionId], value]
+                        : [value]
+                }
+                : { ...prevResponses, [questionId]: value };
+            
+            setIsCurrentQuestionAnswered(true);
+            return updatedResponses;
         });
     };
-    
+
     const renderInputField = (question) => {
         switch (question.type) {
             case 'radio':
@@ -55,7 +60,8 @@ const UserReponse = () => {
                                     id={`${question.id}-${option.key}`}
                                     name={question.id}
                                     value={option.value}
-                                    onChange={(e) => setFormResponses(prev => ({...prev, [question.id]: e.target.value}))}
+                                    onChange={() => handleInputChange(question.id, option.value)}
+                                    checked={formResponses[question.id] === option.value}
                                 />
                                 <label htmlFor={`${question.id}-${option.key}`}>{option.value}</label>
                             </div>
@@ -72,7 +78,8 @@ const UserReponse = () => {
                                     id={`${question.id}-${option.key}`}
                                     name={question.id}
                                     value={option.value}
-                                    onChange={(e) => handleCheckboxChange(question.id, option.value, e.target.checked)}
+                                    onChange={() => handleInputChange(question.id, option.value, true)}
+                                    checked={formResponses[question.id]?.includes(option.value)}
                                 />
                                 <label htmlFor={`${question.id}-${option.key}`}>{option.value}</label>
                             </div>
@@ -85,8 +92,8 @@ const UserReponse = () => {
                         type="range"
                         min="0"
                         max="10"
-                        defaultValue="5"
-                        onChange={(e) => setFormResponses(prev => ({...prev, [question.id]: e.target.value}))}
+                        value={formResponses[question.id] || "5"}
+                        onChange={(e) => handleInputChange(question.id, e.target.value)}
                     />
                 );
             case 'open-ended':
@@ -94,7 +101,8 @@ const UserReponse = () => {
                     <textarea 
                         rows="4" 
                         cols="50"
-                        onChange={(e) => setFormResponses(prev => ({...prev, [question.id]: e.target.value}))}
+                        value={formResponses[question.id] || ""}
+                        onChange={(e) => handleInputChange(question.id, e.target.value)}
                     ></textarea>
                 );
             default:
@@ -131,16 +139,43 @@ const UserReponse = () => {
 
     return (
         <div className="form-container">
-            <h1 className="form-title">{data.title || 'Form Title'}</h1>
-            {Array.isArray(data.questions) ? (
+            <h1 className="form-title">{data?.title || 'Form Title'}</h1>
+            {Array.isArray(data?.questions) && data.questions.length > 0 ? (
                 <form onSubmit={handleSubmit}>
-                    {data.questions.map((question) => (
-                        <div key={question.id} className="question-container">
-                            <h3 className="question-text">{question.question}</h3>
-                            {renderInputField(question)}
+                    <div className="question-card">
+                        <div className="question-content">
+                            {data.questions[currentQuestionIndex] && (
+                                <>
+                                    <h3 className="question-text">{data.questions[currentQuestionIndex].question}</h3>
+                                    {renderInputField(data.questions[currentQuestionIndex])}
+                                </>
+                            )}
                         </div>
-                    ))}
-                    <button type="submit" className="submit-button">Submit</button>
+                        
+                        <div className="navigation-buttons">
+                            <button 
+                                type="button" 
+                                className="nav-button prev-button" 
+                                onClick={() => setCurrentQuestionIndex(prev => Math.max(0, prev - 1))}
+                                disabled={currentQuestionIndex === 0}
+                            >
+                                Previous
+                            </button>
+                            
+                            <button 
+                                type="button" 
+                                className="nav-button next-button" 
+                                onClick={() => setCurrentQuestionIndex(prev => Math.min(data.questions.length - 1, prev + 1))}
+                                disabled={currentQuestionIndex === data.questions.length - 1 || !isCurrentQuestionAnswered}
+                            >
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                    
+                    {currentQuestionIndex === data.questions.length - 1 && (
+                        <button type="submit" className="submit-button">Submit</button>
+                    )}
                 </form>
             ) : (
                 <p className="no-questions">No questions available</p>
