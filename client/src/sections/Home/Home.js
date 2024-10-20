@@ -1,74 +1,149 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import useTypewriter from './useTypewriter';
 import './Home.css';
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import Lenis from '@studio-freight/lenis';
 
 const Home = () => {
+  const phrases = ["Surveys", "Data", "Analysis"];
+  const prefix = "Better ";
+  const typedText = useTypewriter(prefix, phrases);
+
+  useEffect(() => {
+    // Initialize Three.js
+    const canvas = document.querySelector('#three-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas });
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Set background color to #f8f3ea
+    renderer.setClearColor(0xf8f3ea);
+
+    // Add enhanced lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 2); // Increase ambient light intensity to 1
+    scene.add(ambientLight);
+
+    const directionalLight1 = new THREE.DirectionalLight(0xffffff, 2); // Increase the intensity to 1
+    directionalLight1.position.set(5, 10, 7.5);
+    scene.add(directionalLight1);
+
+    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.5); // Another directional light from a different angle
+    directionalLight2.position.set(-5, -10, -7.5);
+    scene.add(directionalLight2);
+
+    const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.8); // Hemisphere light for soft sky and ground lighting
+    hemisphereLight.position.set(0, 20, 0);
+    scene.add(hemisphereLight);
+
+    let model; // Variable to hold the loaded model
+
+    // Load custom GLB model instead of cube
+    const loader = new GLTFLoader();
+    loader.load('/assets/common/iphone_15_pro_-_free_downoald_-_2024.glb', (gltf) => {
+      model = gltf.scene;
+      
+      // Ensure the model's pivot point is centered
+      // model.traverse((node) => {
+      //   if (node.isMesh) {
+      //     node.geometry.center(); // Center the geometry if needed
+      //   }
+      // });
+
+      model.scale.set(0.5, 0.5, 0.5); // Adjust the model size
+      model.position.set(0, -5, 0); // Ensure the model stays at the center
+      scene.add(model);
+    }, undefined, (error) => {
+      console.error('Error loading the model:', error);
+    });
+
+    camera.position.z = 20;
+
+    // Initialize Lenis for smooth scrolling
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    });
+
+    let scrollVelocity = 0;
+
+    // Capture the scroll velocity from Lenis
+    lenis.on('scroll', ({ velocity }) => {
+      scrollVelocity = velocity * 0.01;
+    });
+
+    // Infinite spinning + scroll-based rotation
+    function animate(time) {
+      lenis.raf(time);
+
+      if (model) {
+        model.rotation.y += scrollVelocity || 0.01; // Continuous rotation + scroll-based
+      }
+
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Cleanup on unmount
+    return () => {
+      window.removeEventListener('resize', () => {});
+    };
+  }, []); // Run only once when the component is mounted
+
   return (
-    <div className="home-container">
-      {/* Hero Section */}
-      <section className="hero-section">
-        <h1>Welcome to Formalyze</h1>
-        <p>
-          Transform the way you collect data. Our AI generates questions tailored to your form's purpose, with built-in response and data analysis.
-        </p>
-        <button className="cta-button">Get Started for Free</button>
-      </section>
+    <div className="app-container">
+      <main className="main-content">
+        {/* Other sections */}
+        <section className="hero">
+          <p className="typewriter">
+            <span>{typedText}</span>
+            <span className="blinking-cursor">|</span>
+          </p>
+          <img className="w-[20px]" src="/assets/common/iPhone14.svg" alt="Mockup" />
+          <p className="subtext">Welcome to the future of surveying</p>
+          <p className="description">
+            Transform the way you collect data. Our AI generates questions tailored to your form's purpose, asks further questions, and provides deep insights with built-in response and data analysis.
+          </p>
+          <button className="create-form-btn-large">Create Your First Form</button>
+        </section>
 
-      {/* How It Works Section */}
-      <section className="how-it-works-section">
-        <h2>How Formalyze Works</h2>
-        <div className="steps-grid">
-          <div className="step-card">
-            <h3>1. Define Your Purpose</h3>
-            <p>
-              Simply tell us the goal of your form, and our AI will handle the rest.
-            </p>
+        <section className="steps">
+          <div className="step">
+            <div className="step-number">01</div>
+            <div className="step-title">Define Your Purpose</div>
+            <p className="step-des">Simply tell us the goal of your form, and our AI will handle the rest.</p>
           </div>
-          <div className="step-card">
-            <h3>2. AI-Generated Questions</h3>
-            <p>
-              Based on your form's purpose, our AI will instantly generate relevant, optimized questions.
-            </p>
+
+          <div className="step">
+            <div className="step-number">02</div>
+            <div className="step-title">Gather Profound Information</div>
+            <p className="step-des">Our AI asks further, extensive questions, extracting more information from respondents.</p>
           </div>
-          <div className="step-card">
-            <h3>3. Analyze Responses</h3>
-            <p>
-              Get real-time insights and in-depth analysis of the responses with our built-in data tools.
-            </p>
+
+          <div className="step">
+            <div className="step-number">03</div>
+            <div className="step-title">Gain Deeper Insights</div>
+            <p className="step-des">Get real-time insights and in-depth analysis of the responses with our built-in data tools.</p>
           </div>
+        </section>
+
+        {/* Add the Three.js canvas at the bottom */}
+        <div style={{ width: '100%', height: '400px' }}>
+          <canvas id="three-canvas" />
         </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="features-section">
-        <h2>Key Features</h2>
-        <div className="features-grid">
-          <div className="feature-card">
-            <h3>AI-Powered Question Generation</h3>
-            <p>
-              Create the perfect set of questions with AI tailored to your goals.
-            </p>
-          </div>
-          <div className="feature-card">
-            <h3>Real-Time Response Analysis</h3>
-            <p>
-              Get valuable insights and feedback as soon as responses are submitted.
-            </p>
-          </div>
-          <div className="feature-card">
-            <h3>Comprehensive Data Analysis</h3>
-            <p>
-              Our advanced analytics tools help you make informed decisions.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Call to Action Section */}
-      <section className="cta-section">
-        <h2>Ready to Create Smarter Forms?</h2>
-        <p>Sign up now and revolutionize how you collect data.</p>
-        <button className="cta-button">Get Started</button>
-      </section>
+      </main>
     </div>
   );
 };

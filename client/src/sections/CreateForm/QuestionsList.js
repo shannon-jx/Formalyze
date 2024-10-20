@@ -187,14 +187,16 @@ const QuestionsList = ({ questions, setQuestions,title }) => {
           </li>
         ))}
       </ol>
-      <button type="button" onClick={addQuestion} className="add-question-button">Add New Question</button>
-      <button
-        className="submit-button"
-        onClick={handleCreateForm}
-        disabled={saving}
-      >
-        {saving ? 'Saving...' : 'Create Form'}
-      </button>
+      <div className="bottom-buttons">
+        <button type="button" onClick={addQuestion} className="add-question-button">Add New Question</button>
+        <button
+          className="submit-button"
+          onClick={handleCreateForm}
+          disabled={saving}
+        >
+          {saving ? 'Saving...' : 'Create Form'}
+        </button>
+      </div>
     </div>
   );
 };

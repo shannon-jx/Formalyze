@@ -1,12 +1,16 @@
 .header {
-    background-color: #000;
+    background-color: #f8f3ea;
     padding: 20px;
+    text-align: center; /* Optional for centering */
 }
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1200px;  /* Add a max-width for better centering */
+    margin: 0 auto;     /*Center the navbar horizontally */
+    width: 100%;
 }
 
 .logo img {
@@ -25,31 +29,32 @@
 }
 
 .nav-item a {
-    color: #fff;
+    color: #1A1D20;
     text-decoration: none;
     font-size: 16px;
     transition: color 0.3s ease;
 }
 
 .nav-item a:hover {
-    color: #aaa;
+    color: #1A1D20;
 }
 
 .login-button,
 .logout-button {
-    background-color: transparent;
+    background-color: #7a94ff;
     color: #fff;
-    border: 1px solid #fff;
+    border: 1px solid #1A1D20;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
+    border-radius: 25px;
 }
 
 .login-button:hover,
 .logout-button:hover {
-    background-color: #fff;
-    color: #000;
+    background-color: #1A1D20;
+    color: #ffffff; /* Change text color to white for contrast */
 }
 
 .user-info {
