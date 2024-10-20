@@ -14,9 +14,9 @@ const AnalysisTab = ({ responses, formQuestions }) => {
       try {
         const response = await axios.post('/api/analyze-sentiment', { responses, formQuestions });
 
-        console.log('Response: ', JSON.stringify(response, null, 2));
+        console.log('Response: ', JSON.stringify(response.data, null, 2));
 
-        setAnalysisResult(response);
+        setAnalysisResult(response.data);
         // if (response.data && response.data.analysis) {
         //   setAnalysisResult(response.data.analysis);
         // } else {
@@ -57,10 +57,10 @@ const AnalysisTab = ({ responses, formQuestions }) => {
         <div>
           {analysisResult ? (
             <div className="sentiment-analysis-result">
-              {/* <h4>Overall Sentiment:</h4>
+              <h4>Overall Sentiment:</h4>
               <p>{analysisResult.overallSentiment}</p>
               <h4>Details:</h4>
-              {analysisResult.details.map((detail, index) => (
+              {/* {analysisResult.details.map((detail, index) => (
                 <div key={index} className="response-details">
                   <h5>Response {index + 1}:</h5>
                   {detail.questions.map((question, qIndex) => (
@@ -73,7 +73,7 @@ const AnalysisTab = ({ responses, formQuestions }) => {
                   ))}
                 </div>
               ))} */}
-              {analysisResult}
+              {JSON.stringify(analysisResult)}
             </div>
           ) : (
             <p>No sentiment analysis results yet.</p>
@@ -82,6 +82,34 @@ const AnalysisTab = ({ responses, formQuestions }) => {
       )}
     </section>
   );
+  // return (
+  //   <section className="analysis-section">
+  //     <h3>Sentiment Analysis</h3>
+  //     {loading ? (
+  //       <p>Analyzing responses...</p>
+  //     ) : (
+  //       <div>
+  //         {analysisResult ? (
+  //           <div className="sentiment-analysis-result">
+  //             <h4>Overall Sentiment:</h4>
+  //             <p>{analysisResult.analysis.overallSentiment}</p>
+  //             <h4>Details:</h4>
+  //             {analysisResult.analysis.details.map((detail, index) => (
+  //               <div key={index} className="response-details">
+  //                 <h5>Question {index + 1}:</h5>
+  //                 <p><strong>{formQuestions[index]?.question}</strong></p>
+  //                 <p>Response: {responses[index]}</p>
+  //                 <p>Sentiment: {detail.sentiment}</p>
+  //               </div>
+  //             ))}
+  //           </div>
+  //         ) : (
+  //           <p>No sentiment analysis results yet.</p>
+  //         )}
+  //       </div>
+  //     )}
+  //   </section>
+  // );  
 };
 
 export default AnalysisTab;
