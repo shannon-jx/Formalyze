@@ -112,13 +112,13 @@ function SurveyEdit() {
         <div className="questions-container">
           <h2>Questions</h2>
           {survey.questions && survey.questions.map((question, index) => (
-            <div key={index} className="question-card">
+            <div key={index} className={`question-card question-type-${question.type}`}>
               <div className="question-header">
                 <h3>Question {index + 1}</h3>
                 <button onClick={() => deleteQuestion(index)} className="btn btn-danger">Delete</button>
               </div>
               <div className="form-group">
-                <label htmlFor={`question-${index}`}>Question {index + 1}</label>
+                <label htmlFor={`question-${index}`}>Question Text</label>
                 <input
                   id={`question-${index}`}
                   type="text"
@@ -143,10 +143,17 @@ function SurveyEdit() {
               </div>
               {(question.type === 'multipleChoice' || question.type === 'checkbox') && (
                 <div className="options-container">
-                  <h3>Options</h3>
+                  <h4>{question.type === 'multipleChoice' ? 'Multiple Choice Options' : 'Checkbox Options'}</h4>
                   {question.options && question.options.map((option, optionIndex) => (
-                    <div key={optionIndex} className="form-group">
-                      <label htmlFor={`option-${index}-${optionIndex}`}>Option {optionIndex + 1}</label>
+                    <div key={optionIndex} className="form-group option-group">
+                      <label htmlFor={`option-${index}-${optionIndex}`}>
+                        {question.type === 'multipleChoice' ? (
+                          <span className="radio-icon"></span>
+                        ) : (
+                          <span className="checkbox-icon"></span>
+                        )}
+                        Option {optionIndex + 1}
+                      </label>
                       <input
                         id={`option-${index}-${optionIndex}`}
                         type="text"
