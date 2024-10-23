@@ -122,34 +122,6 @@ const AnalysisTab = ({ responses, formQuestions }) => {
       )}
     </section>
   );
-  // return (
-  //   <section className="analysis-section">
-  //     <h3>Sentiment Analysis</h3>
-  //     {loading ? (
-  //       <p>Analyzing responses...</p>
-  //     ) : (
-  //       <div>
-  //         {analysisResult ? (
-  //           <div className="sentiment-analysis-result">
-  //             <h4>Overall Sentiment:</h4>
-  //             <p>{analysisResult.analysis.overallSentiment}</p>
-  //             <h4>Details:</h4>
-  //             {analysisResult.analysis.details.map((detail, index) => (
-  //               <div key={index} className="response-details">
-  //                 <h5>Question {index + 1}:</h5>
-  //                 <p><strong>{formQuestions[index]?.question}</strong></p>
-  //                 <p>Response: {responses[index]}</p>
-  //                 <p>Sentiment: {detail.sentiment}</p>
-  //               </div>
-  //             ))}
-  //           </div>
-  //         ) : (
-  //           <p>No sentiment analysis results yet.</p>
-  //         )}
-  //       </div>
-  //     )}
-  //   </section>
-  // );  
 };
 
 export default AnalysisTab;
