@@ -4,7 +4,8 @@ import { db } from '../firebase';
 import { getAuth } from 'firebase/auth';
 import './CreateForm.css';
 import { FaTrash } from 'react-icons/fa';
-const QuestionsList = ({ questions, setQuestions,title }) => {
+
+const QuestionsList = ({ questions, setQuestions, title }) => {
   const [saving, setSaving] = useState(false);
 
   const handleQuestionChange = (index, newQuestion) => {
@@ -52,6 +53,7 @@ const QuestionsList = ({ questions, setQuestions,title }) => {
       question: '',
       type: 'radio',
       options: [{ value: '' }],
+      poked: false,
     };
     setQuestions([...questions, newQuestion]);
   };
@@ -60,6 +62,17 @@ const QuestionsList = ({ questions, setQuestions,title }) => {
     let updatedQuestions = questions.filter((_, i) => i !== index);
     updatedQuestions = updatedQuestions.map((question, i) => ({ ...question, id: i + 1 })); 
     setQuestions(updatedQuestions);
+  };
+
+  const handleCheckboxChange = (index) => {
+    const updatedQuestions = questions.map((question, i) => 
+      i === index ? { ...question, poked: !question.poked } : question
+    );
+    setQuestions(updatedQuestions);
+
+    // if (updatedQuestions[index].poked) {
+    //   alert(`Question ${index + 1} has been poked!`);
+    // }
   };
 
   const renderInputField = (question, questionIndex) => {
@@ -160,28 +173,42 @@ const QuestionsList = ({ questions, setQuestions,title }) => {
       <ol>
         {questions.map((question, questionIndex) => (
           <li key={question.id} className="question-item">
-            <div className="input-select-container">
-              <input
-                type="text"
-                value={question.question}
-                onChange={(e) => handleQuestionChange(questionIndex, e.target.value)}
-                className="question-input"
-                placeholder="Type your question here"
-              />
-              <select
-                value={question.type}
-                onChange={(e) => handleTypeChange(questionIndex, e.target.value)}
-                className="type-dropdown"
-              >
-                <option value="radio">Radio</option>
-                <option value="checkbox">Checkbox</option>
-                <option value="slider">Slider</option>
-                <option value="open-ended">Open-ended</option>
-              </select>
-              <FaTrash
-                className="delete-icon"
-                onClick={() => deleteQuestion(questionIndex)}
-              />
+            <div className="question-header">
+              <div className="input-select-container">
+                <input
+                  type="text"
+                  value={question.question}
+                  onChange={(e) => handleQuestionChange(questionIndex, e.target.value)}
+                  className="question-input"
+                  placeholder="Type your question here"
+                />
+                <div className="poke-container">
+                  <label className="poke-label">
+                    Poke
+                    <input
+                      type="checkbox"
+                      checked={question.poked || false}
+                      onChange={() => handleCheckboxChange(questionIndex)}
+                      className="question-checkbox"
+                    />
+                  </label>
+                </div>
+                <select
+                  value={question.type}
+                  onChange={(e) => handleTypeChange(questionIndex, e.target.value)}
+                  className="type-dropdown"
+                >
+                  <option value="radio">Radio</option>
+                  <option value="checkbox">Checkbox</option>
+                  <option value="slider">Slider</option>
+                  <option value="open-ended">Open-ended</option>
+                </select>
+                <FaTrash
+                  className="delete-icon"
+                  onClick={() => deleteQuestion(questionIndex)}
+                />
+              </div>
+              
             </div>
             {renderInputField(question, questionIndex)}
           </li>
