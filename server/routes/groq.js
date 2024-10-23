@@ -46,11 +46,11 @@ router.post('/generate-questions', async (req, res) => {
 });
 
 router.post('/analyze-sentiment', async (req, res) => {
-  const { responses, formQuestions } = req.body; // Expect both responses and formQuestions to be sent from the frontend
+  const { responses, formQuestions } = req.body;
 
   try {
     const promptContent = `
-      Perform sentiment analysis on the following survey responses: ${JSON.stringify(responses)}.
+      Perform in-depth sentiment analysis on the following survey responses and return a JSON object: ${JSON.stringify(responses)}.
       Here are the form questions: ${JSON.stringify(formQuestions)}.
     `;
     console.log('Prompt Content: ' + promptContent);
@@ -62,15 +62,15 @@ router.post('/analyze-sentiment', async (req, res) => {
           content: promptContent, 
         },
       ],
-      model: 'llama3-8b-8192',
-      temperature: 0.7,
-      max_tokens: 1024,
-      top_p: 1,
-      stream: false,
-      response_format: {
-        type: 'json_object',
-      },
-      stop: null,
+      model: "llama3-8b-8192", 
+        temperature: 1,
+        max_tokens: 8192,
+        top_p: 1,
+        stream: false,
+        response_format: {
+            type: "json_object"
+        },
+        stop: null
     });
 
     const responseMessage =
@@ -80,7 +80,7 @@ router.post('/analyze-sentiment', async (req, res) => {
     const lastBraceIndex = responseMessage.lastIndexOf('}');
     const jsonString = responseMessage.substring(firstBraceIndex, lastBraceIndex + 1);
     const jsonParsed = JSON.parse(jsonString);
-    
+    console.log(jsonParsed)
     res.json({ analysis: jsonParsed });
   } catch (error) {
     console.error('Error performing sentiment analysis:', error);
