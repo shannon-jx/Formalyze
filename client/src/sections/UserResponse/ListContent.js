@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { collection, addDoc, doc, getDoc } from 'firebase/firestore';
+import axios from 'axios';
 import './ListContent.css';
 import {db} from '../firebase'; 
 import { useParams } from 'react-router-dom';
 
-const UserReponse = () => {
+const UserResponse = () => {
     const { userId, formId } = useParams();
     const [data, setData] = useState([]);
     const [formResponses, setFormResponses] = useState({});
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [isCurrentQuestionAnswered, setIsCurrentQuestionAnswered] = useState(false);
+    const [followUpQuestions, setFollowUpQuestions] = useState({});
 
     useEffect(() => {
         const fetchUserResponse = async () => {    
@@ -46,6 +48,43 @@ const UserReponse = () => {
             setIsCurrentQuestionAnswered(true);
             return updatedResponses;
         });
+    };
+
+    const handleNextQuestion = async () => {
+        const currentQuestion = data.questions[currentQuestionIndex];
+        if (currentQuestion.type === 'open-ended' && currentQuestion.poked && formResponses[currentQuestion.id]) {
+            try {
+                const response = await axios.post('/api/poking-questions', {
+                    question: currentQuestion.question,
+                    answer: formResponses[currentQuestion.id]
+                });
+                console.log(response);
+                
+                // Create a new follow-up question object
+                const followUpQuestion = {
+                    id: `${currentQuestion.id}-followup`,
+                    type: 'open-ended',
+                    question: response.data.message,
+                    poked: false // We don't want to poke the follow-up question
+                };
+                
+                // Insert the follow-up question after the current question
+                setData(prevData => {
+                    const newQuestions = [...prevData.questions];
+                    newQuestions.splice(currentQuestionIndex + 1, 0, followUpQuestion);
+                    return { ...prevData, questions: newQuestions };
+                });
+                
+                // Move to the newly inserted follow-up question
+                setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+            } catch (error) {
+                console.error('Error generating follow-up question:', error);
+            }
+        } else {
+            // If it's not a poked open-ended question, just move to the next question
+            setCurrentQuestionIndex(prev => Math.min(data.questions.length - 1, prev + 1));
+        }
+        setIsCurrentQuestionAnswered(false);
     };
 
     const renderInputField = (question) => {
@@ -121,14 +160,36 @@ const UserReponse = () => {
             const formDocRef = doc(formsCollectionRef, formId);
             const formData = collection(formDocRef, 'response');
             
+            // Prepare submission data
+            const submissionData = data.questions.map(question => {
+                const questionId = String(question.id); // Ensure question.id is a string
+                const isFollowUp = typeof questionId === 'string' && questionId.includes('-followup');
+                const response = {
+                    id: questionId,
+                    question: question.question,
+                    type: question.type,
+                    answer: formResponses[questionId] || '',
+                    isFollowUp: isFollowUp
+                };
+
+                if (isFollowUp) {
+                    response.originalQuestionId = questionId.split('-followup')[0];
+                } else if (question.poked) {
+                    const followUpId = `${questionId}-followup`;
+                    response.followUpQuestion = data.questions.find(q => String(q.id) === followUpId)?.question || '';
+                    response.followUpAnswer = formResponses[followUpId] || '';
+                }
+
+                return response;
+            });
+
             console.log("Attempting to add document to Firestore");
             const docRef = await addDoc(formData, {
-                answers: formResponses,
+                responses: submissionData,
                 createdAt: new Date(),
             });
             console.log("Document written with ID: ", docRef.id);
             
-            // Clear form responses after successful submission
             setFormResponses({});
             alert('Form submitted successfully!');
         } catch (error) {
@@ -165,7 +226,7 @@ const UserReponse = () => {
                             <button 
                                 type="button" 
                                 className="nav-button next-button" 
-                                onClick={() => setCurrentQuestionIndex(prev => Math.min(data.questions.length - 1, prev + 1))}
+                                onClick={handleNextQuestion}
                                 disabled={currentQuestionIndex === data.questions.length - 1 || !isCurrentQuestionAnswered}
                             >
                                 Next
@@ -184,4 +245,4 @@ const UserReponse = () => {
     );
 };
 
-export default UserReponse;
+export default UserResponse;

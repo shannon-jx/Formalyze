@@ -69,10 +69,6 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
       i === index ? { ...question, poked: !question.poked } : question
     );
     setQuestions(updatedQuestions);
-
-    // if (updatedQuestions[index].poked) {
-    //   alert(`Question ${index + 1} has been poked!`);
-    // }
   };
 
   const renderInputField = (question, questionIndex) => {
@@ -182,17 +178,6 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
                   className="question-input"
                   placeholder="Type your question here"
                 />
-                <div className="poke-container">
-                  <label className="poke-label">
-                    Poke
-                    <input
-                      type="checkbox"
-                      checked={question.poked || false}
-                      onChange={() => handleCheckboxChange(questionIndex)}
-                      className="question-checkbox"
-                    />
-                  </label>
-                </div>
                 <select
                   value={question.type}
                   onChange={(e) => handleTypeChange(questionIndex, e.target.value)}
@@ -203,12 +188,24 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
                   <option value="slider">Slider</option>
                   <option value="open-ended">Open-ended</option>
                 </select>
+                {question.type === 'open-ended' && (
+                  <div className="poke-container">
+                    <label className="poke-label">
+                      Poke
+                      <input
+                        type="checkbox"
+                        checked={question.poked || false}
+                        onChange={() => handleCheckboxChange(questionIndex)}
+                        className="question-checkbox"
+                      />
+                    </label>
+                  </div>
+                )}
                 <FaTrash
                   className="delete-icon"
                   onClick={() => deleteQuestion(questionIndex)}
                 />
               </div>
-              
             </div>
             {renderInputField(question, questionIndex)}
           </li>

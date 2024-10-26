@@ -118,16 +118,16 @@ router.post('/generate-questions-title', async (req, res) => {
 
 
 router.post('/poking-questions',async(req,res)=>{
-  const { message } = req.body;
-
+  const { question } = req.body;
+  const {answer} = req.body;
 
   try {
     const chatCompletion = await groq.chat.completions.create({
         messages: [
             {
             role: "user",
-            content: `Generate 2 more questions base on the question and answer. The purpose is to find out the reason of choose the answer. 
-            The question need to be in JSON format: {"questions":[{"id": 0, "type": ENUM("radio", "checkbox", "slider", "open-ended"), "question": "", "options": [{"key": 0, "value": ""}]}]}. The question is: ${message} and the answer to `,
+            content: `Generate only one open end follow up question base on the question and user's answer. Use their answer to ask futher question to find their motivation of their answer.Only generate one line of question, without add other things
+            the question is ${question} and answer is ${answer}`
             },
         ],
         model: "llama3-8b-8192", 
@@ -135,20 +135,12 @@ router.post('/poking-questions',async(req,res)=>{
         max_tokens: 8192,
         top_p: 1,
         stream: false,
-        response_format: {
-            type: "json_object"
-        },
         stop: null
     });    
-    const responseMessage =
+    const pokeQuestion =
       chatCompletion.choices[0]?.message?.content || 'No response';
-
-    const firstBraceIndex = responseMessage.indexOf('{');
-    const lastBraceIndex = responseMessage.lastIndexOf('}');
-    const jsonString = responseMessage.substring(firstBraceIndex, lastBraceIndex + 1);
-    const jsonParsed = JSON.parse(jsonString);
-    console.log(jsonParsed)
-    res.json({ message: jsonParsed });
+    // console.log(pokeQuestion);
+    res.json({ message: pokeQuestion });
   } catch (error) {
     console.error('Error generating chat:', error);
     res.status(500).json({ error: 'Error generating chat' });
