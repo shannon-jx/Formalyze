@@ -37,3 +37,5 @@ server/npm-debug.log*
 server/yarn-debug.log*
 server/yarn-error.log*
 node_modules
+package.json
+package.json
