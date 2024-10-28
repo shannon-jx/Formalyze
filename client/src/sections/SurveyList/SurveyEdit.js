@@ -17,29 +17,37 @@ function SurveyEdit() {
       try {
         const auth = getAuth();
         const user = auth.currentUser;
-
+  
         if (!user) {
           throw new Error('User not authenticated');
         }
-
+  
         const surveyDoc = await getDoc(doc(db, 'users', user.uid, 'forms', id));
-        
+  
         if (surveyDoc.exists()) {
-          setSurvey({ id: surveyDoc.id, ...surveyDoc.data() });
+          const surveyData = surveyDoc.data();
+          const questions = surveyData.questions.map((q) => {
+            const options = Array.isArray(q.options)
+              ? q.options.map((option) => option.value)
+              : [];
+            return { ...q, options };
+          });
+          setSurvey({ id: surveyDoc.id, ...surveyData, questions });
         } else {
           throw new Error('Survey not found');
         }
-
+  
         setLoading(false);
       } catch (err) {
-        console.error("Error fetching survey: ", err);
+        console.error('Error fetching survey: ', err);
         setError(err.message);
         setLoading(false);
       }
     };
-
+  
     fetchSurvey();
   }, [id]);
+  
 
   const handleTitleChange = (e) => {
     setSurvey({ ...survey, title: e.target.value });
@@ -69,22 +77,38 @@ function SurveyEdit() {
     try {
       const auth = getAuth();
       const user = auth.currentUser;
-
+  
       if (!user) {
         throw new Error('User not authenticated');
       }
-
-      await updateDoc(doc(db, 'users', user.uid, 'forms', id), {
+  
+      const surveyToSave = {
         title: survey.title,
-        questions: survey.questions,
-      });
-
+        questions: survey.questions.map((q, questionIndex) => {
+          let options = q.options;
+  
+          if (q.type === 'multipleChoice' || q.type === 'checkbox' || q.type === 'slider') {
+            options = q.options.map((option, optionIndex) => ({
+              key: optionIndex,
+              value: option,
+            }));
+          }
+  
+          return {
+            ...q,
+            options,
+          };
+        }),
+      };
+  
+      await updateDoc(doc(db, 'users', user.uid, 'forms', id), surveyToSave);
+  
       navigate(`/forms/${id}`);
     } catch (err) {
-      console.error("Error updating survey: ", err);
+      console.error('Error updating survey: ', err);
       setError(err.message);
     }
-  };
+  };  
 
   if (loading) {
     return <div>Loading form...</div>;
