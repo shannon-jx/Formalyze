@@ -50,8 +50,42 @@ router.post('/analyze-sentiment', async (req, res) => {
 
   try {
     const promptContent = `
-      Perform in-depth sentiment analysis on the following survey responses and return a JSON object: ${JSON.stringify(responses)}.
-      Here are the form questions: ${JSON.stringify(formQuestions)}.
+      Perform in-depth analysis on the following survey responses for overall sentiment and analysis on each question. 
+      Responses: ${JSON.stringify(responses)}.
+      Form Questions: ${JSON.stringify(formQuestions)}.
+      Return a JSON object strictly in the below structure:
+      {
+        "overallSentiment": {
+          "positive": "percentage",
+          "negative": "percentage",
+          "neutral": "percentage",
+          "trend": "positive/negative/neutral"
+        },
+        "questions": [
+          {
+            "questionId": "string",
+            "text": "string",
+            "sentiment": {
+              "positive": "percentage",
+              "negative": "percentage",
+              "neutral": "percentage"
+            },
+            "responsePatterns": {
+              "mostCommonKeywords": ["string", "string", "string"],
+              "distribution": {
+                "option1": "percentage",
+                "option2": "percentage",
+                "option3": "percentage"
+              }
+            }
+          }
+        ],
+        "commonThemes": ["string", "string"],
+        "actionableInsights": [
+          "string",
+          "string"
+        ]
+      }
     `;
     console.log('Prompt Content: ' + promptContent);
 
