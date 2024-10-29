@@ -119,7 +119,7 @@ const UserReponse = () => {
             const userDocRef = doc(db, 'users', userId);
             const formsCollectionRef = collection(userDocRef, 'forms');
             const formDocRef = doc(formsCollectionRef, formId);
-            const formData = collection(formDocRef, 'response');
+            const formData = collection(formDocRef, 'responses');
             
             console.log("Attempting to add document to Firestore");
             const docRef = await addDoc(formData, {

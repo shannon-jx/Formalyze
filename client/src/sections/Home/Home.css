@@ -1,115 +1,124 @@
 .app-container {
-    font-family: 'Inter', sans-serif;
-    background-color: #f8f3ea;
-    color: #1A1D20;
-    padding: 0;
-    margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #f8f3ea;
+  color: #1A1D20;
+  padding: 0;
+  margin: 0;
 }
   
 .header {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
 }
   
 .logo {
-    font-weight: bold;
-    font-size: 24px;
+  font-weight: bold;
+  font-size: 24px;
 }
   
 .nav-links a {
-    margin: 0 10px;
-    text-decoration: none;
-    color: #000;
+  margin: 0 10px;
+  text-decoration: none;
+  color: #000;
 }
   
 .create-form-btn {
-    background-color: #7a94ff;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
+  background-color: #7a94ff;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
 }
   
 .main-content {
-    text-align: center;
+  text-align: center;
 }
   
 .hero {
-    margin: 0px auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center horizontally */
-    justify-content: center; /* Center vertically */
-    text-align: center;
-    min-height: 80vh; /* Ensure the hero section takes up enough vertical space */
+  margin: 0px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  text-align: center;
+  min-height: 80vh; /* Ensure the hero section takes up enough vertical space */
 }
 
 .hero img {
-    height: 700px
+  height: 700px
 }
   
 .subtext {
-    font-size: 64px;
-    font-weight: bold;
-    margin-bottom: 4px;
+  font-size: 64px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #1A1D20;
 }
   
 .description {
-    max-width: 880px;
-    font-size: 24px;
-    margin: 20px auto;
+  max-width: 880px;
+  font-size: 24px;
+  margin: 20px auto;
 }
   
 .create-form-btn-large {
-    background-color: #7a94ff;
-    color: #fff;
-    padding: 15px 30px;
-    cursor: pointer;
-    font-size: 18px;
-    width: 250px;
-    align-items: center;
-    border-radius: 25px;
+  background-color: #7a94ff;
+  color: #fff;
+  padding: 15px 30px;
+  cursor: pointer;
+  font-size: 18px;
+  width: 250px;
+  align-items: center;
+  border-radius: 25px;
 }
-  
+
+
 .steps {
-    display: flex;
-    /* flex-direction: column; */
-    justify-content: center;
-    align-items: top;
-    gap: 60px;
-    margin: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  margin: 60px
 }
   
 .step {
-    max-width: 400px;
-    text-align: left;
-    font-size: 40px;
-    padding: 30px;
-    background-color: #7a94ff;
-    border-radius: 25px;
+  display: flex;
+  max-width: 1100px;
+  text-align: left;
+  font-size: 40px;
+  padding: 30px;
+  background-color: transparent;
+  border-radius: 25px;
 }
   
 .step-number {
     font-size: 40px;
     color: #1A1D20;
     font-weight: bold;
-    margin-bottom: 16px;
+    margin-right: 32px;
 } 
 
 .step-title {
-    font-size: 40px;
-    font-weight: bold;
-    color: #fff;
-    line-height: 40px;
-    margin-bottom: 16px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #7a94ff;
+  line-height: 40px;
+  margin-right: 60px;
+  max-width: 250px;
 }
 
 .step-des {
-    font: poppins;
-    font-size: 24px;
-    color: #fff;
-    margin: 0px;
+  font: poppins;
+  font-size: 24px;
+  color: #1A1D20;
+  margin: 0px;
+}
+
+.hr {
+  border: none;
+  border-top: 2px solid #7a94ff;  /* Set the color and thickness */
+  margin: 20px 0;  /* Optional: Adjust the space around the line */
 }
 
 .typewriter {
@@ -117,6 +126,7 @@
   font-weight: bold;
   display: inline-block;
   margin-top: 48px;
+  color: #1A1D20;
 }
 
 .blinking-cursor {
@@ -165,6 +175,36 @@
   position: absolute;
   top: 20px;
   right: 20px;
+} 
+
+.scroll-box {
+  height: 200px;
+  overflow-y: scroll;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  margin: 20px 0;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease;
+  scroll-snap-align: start;
 }
-  
-  
+
+.scroll-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.scroll-content {
+  margin-top: 10px;
+  font-size: 18px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.scroll-box.fully-scrolled .scroll-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+

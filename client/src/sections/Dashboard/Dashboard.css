@@ -1,0 +1,108 @@
+/* src/sections/Dashboard/Dashboard.css */
+
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-sizing: border-box;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  
+  .nav-card {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .nav-card h2 {
+    margin-top: 0;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .form-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .form-list li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    position: relative;
+  }
+  
+  .form-list li:hover {
+    background-color: #eaeaea;
+  }
+  
+  .form-list li.active {
+    background-color: #dcdcdc;
+    font-weight: bold;
+  }
+  
+  .survey-actions {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+  
+  .survey-actions button {
+    margin-left: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 3px;
+  }
+  
+  .survey-actions button:hover {
+    background-color: #0056b3;
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .button-group button {
+    flex: 1;
+    padding: 8px;
+    cursor: pointer;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 3px;
+  }
+  
+  .button-group button.active {
+    background-color: #0056b3;
+  }
+  
+  .loading,
+  .error,
+  .no-surveys {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 18px;
+  }
+  

@@ -65,7 +65,7 @@ const CreateForm = () => {
           rows="1"
           className="input-textarea"
         />
-        <button type="submit" className="submit-button">
+        <button type="submit" className="generate-button">
           {loading ? 'Generating...' : 'Generate Questions'}
         </button>
       </form>
