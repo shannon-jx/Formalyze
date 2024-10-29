@@ -33,6 +33,7 @@
     text-decoration: none;
     font-size: 16px;
     transition: color 0.3s ease;
+    font-family: Inter;
 }
 
 .nav-item a:hover {
@@ -60,10 +61,11 @@
 .user-info {
     display: flex;
     align-items: center;
+    font-family: Inter;
 }
 
 .user-name {
-    color: #fff;
+    color: #1A1D20;
     margin-right: 20px;
     font-size: 16px;
 }

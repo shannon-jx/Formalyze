@@ -1,0 +1,31 @@
+/* sections/Dashboard/SurveysList.css */
+.surveys-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.surveys-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.surveys-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.surveys-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.surveys-list a {
+  color: #2196F3;
+  text-decoration: none;
+}
+
+.surveys-list a:hover {
+  text-decoration: underline;
+}

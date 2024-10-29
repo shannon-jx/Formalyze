@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import useTypewriter from './useTypewriter';
 import './Home.css';
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import Lenis from '@studio-freight/lenis';
 
 const Home = () => {
@@ -11,114 +9,45 @@ const Home = () => {
   const typedText = useTypewriter(prefix, phrases);
 
   useEffect(() => {
-    // Initialize Three.js
-    const canvas = document.querySelector('#three-canvas');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas });
-
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
-
-    // Set background color to #f8f3ea
-    renderer.setClearColor(0xf8f3ea);
-
-    // Add enhanced lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 2); // Increase ambient light intensity to 1
-    scene.add(ambientLight);
-
-    const directionalLight1 = new THREE.DirectionalLight(0xffffff, 2); // Increase the intensity to 1
-    directionalLight1.position.set(5, 10, 7.5);
-    scene.add(directionalLight1);
-
-    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.5); // Another directional light from a different angle
-    directionalLight2.position.set(-5, -10, -7.5);
-    scene.add(directionalLight2);
-
-    const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.8); // Hemisphere light for soft sky and ground lighting
-    hemisphereLight.position.set(0, 20, 0);
-    scene.add(hemisphereLight);
-
-    let model; // Variable to hold the loaded model
-
-    // Load custom GLB model instead of cube
-    const loader = new GLTFLoader();
-    loader.load('/assets/common/iphone_15_pro_-_free_downoald_-_2024.glb', (gltf) => {
-      model = gltf.scene;
-      
-      // Ensure the model's pivot point is centered
-      // model.traverse((node) => {
-      //   if (node.isMesh) {
-      //     node.geometry.center(); // Center the geometry if needed
-      //   }
-      // });
-
-      model.scale.set(0.5, 0.5, 0.5); // Adjust the model size
-      model.position.set(0, -5, 0); // Ensure the model stays at the center
-      scene.add(model);
-    }, undefined, (error) => {
-      console.error('Error loading the model:', error);
-    });
-
-    camera.position.z = 20;
-
     // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
 
-    let scrollVelocity = 0;
-
-    // Capture the scroll velocity from Lenis
-    lenis.on('scroll', ({ velocity }) => {
-      scrollVelocity = velocity * 0.01;
-    });
-
-    // Infinite spinning + scroll-based rotation
     function animate(time) {
       lenis.raf(time);
-
-      if (model) {
-        model.rotation.y += scrollVelocity || 0.01; // Continuous rotation + scroll-based
-      }
-
-      renderer.render(scene, camera);
       requestAnimationFrame(animate);
     }
 
     requestAnimationFrame(animate);
 
-    // Handle window resize
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
     // Cleanup on unmount
     return () => {
-      window.removeEventListener('resize', () => {});
+      lenis.destroy();
     };
-  }, []); // Run only once when the component is mounted
+  }, []);
 
   return (
     <div className="app-container">
       <main className="main-content">
-        {/* Other sections */}
+        {/* Hero Section */}
         <section className="hero">
           <p className="typewriter">
             <span>{typedText}</span>
             <span className="blinking-cursor">|</span>
           </p>
           <img className="w-[20px]" src="/assets/common/iPhone14.svg" alt="Mockup" />
-          <p className="subtext">Welcome to the future of surveying</p>
-          <p className="description">
-            Transform the way you collect data. Our AI generates questions tailored to your form's purpose, asks further questions, and provides deep insights with built-in response and data analysis.
-          </p>
-          <button className="create-form-btn-large">Create Your First Form</button>
+          <div className="cta">
+            <p className="subtext">Welcome to the future of surveying</p>
+            <p className="description">
+              Transform the way you collect data. Our AI generates questions tailored to your form's purpose, asks further questions, and provides deep insights with built-in response and data analysis.
+            </p>
+            <button className="create-form-btn-large">Create Your First Form</button>
+          </div>
         </section>
 
+        {/* Steps Section */}
         <section className="steps">
           <div className="step">
             <div className="step-number">01</div>
@@ -128,7 +57,7 @@ const Home = () => {
 
           <div className="step">
             <div className="step-number">02</div>
-            <div className="step-title">Gather Profound Information</div>
+            <div className="step-title">Gather Quality Data</div>
             <p className="step-des">Our AI asks further, extensive questions, extracting more information from respondents.</p>
           </div>
 
@@ -139,11 +68,43 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Add the Three.js canvas at the bottom */}
-        <div style={{ width: '100%', height: '400px' }}>
-          <canvas id="three-canvas" />
-        </div>
+        {/* Scrollable Reveal Boxes */}
+        {[...Array(5)].map((_, index) => (
+          <ScrollBox
+            key={index}
+            title={`Discover More ${index + 1}`}
+            content={`This is additional information that reveals as you scroll through box ${index + 1}. Explore insights, data trends, and much more to make informed decisions with ease.`}
+          />
+        ))}
       </main>
+    </div>
+  );
+};
+
+// ScrollBox Component
+const ScrollBox = ({ title, content }) => {
+  const [isFullyScrolled, setIsFullyScrolled] = useState(false);
+  const boxRef = useRef(null);
+
+  const handleScroll = () => {
+    if (boxRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = boxRef.current;
+      if (scrollTop + clientHeight >= scrollHeight - 10) {
+        setIsFullyScrolled(true); // Fully reveal content when scrolled to the bottom
+      } else {
+        setIsFullyScrolled(false); // Hide content if not fully scrolled
+      }
+    }
+  };
+
+  return (
+    <div
+      ref={boxRef}
+      onScroll={handleScroll}
+      className={`scroll-box ${isFullyScrolled ? 'fully-scrolled' : ''}`}
+    >
+      <h2 className="scroll-title">{title}</h2>
+      <p className={`scroll-content ${isFullyScrolled ? 'revealed' : ''}`}>{content}</p>
     </div>
   );
 };

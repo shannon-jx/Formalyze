@@ -50,6 +50,7 @@ const Header = () => {
           <li className="nav-item"><Link to="/contact">Contact Us</Link></li>
           <li className="nav-item"><Link to="/faq">FAQ</Link></li>
           <li className="nav-item"><Link to="/forms">Forms</Link></li>
+          <li className="nav-item"><Link to="/dashboard">Dashboard</Link></li>
         </ul>
 
         {user ? (
@@ -58,9 +59,8 @@ const Header = () => {
             <button className="logout-button" onClick={handleLogout}>Logout</button>
           </div>
         ) : (
-          <Link to="/login">
-            <button className="login-button">Login</button>
-          </Link>
+          
+            <button className="login-button" onClick={handleLoginClick}>Login</button>
         )}
       </nav>
 
