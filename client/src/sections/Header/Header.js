@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import './Header.css';
+import LoginOverlay from './LoginOverlay';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -26,18 +27,30 @@ const Header = () => {
     navigate('/login');
   };
 
+  const [showLoginOverlay, setShowLoginOverlay] = useState(false);
+
+  const handleLoginClick = () => {
+    setShowLoginOverlay(true);
+  };
+
+  const closeOverlay = () => {
+    setShowLoginOverlay(false);
+  };
+
   return (
     <header className="header">
       <nav className="navbar">
         <div className="logo">
-          <img className="w-[20px]" src="/assets/common/logo_without_slogan.jpg" alt="Logo" />
+          <img className="w-[20px]" src="/assets/common/logo_word.png" alt="Logo" />
         </div>
         <ul className="nav-list">
-          <li className="nav-item"><a href="/home">Home</a></li>
-          <li className="nav-item"><a href="/features">Features</a></li>
-          <li className="nav-item"><a href="/pricing">Pricing</a></li>
-          <li className="nav-item"><a href="/contact">Contact Us</a></li>
-          <li className="nav-item"><a href="/faq">FAQ</a></li>
+          <li className="nav-item"><Link to="/home">Home</Link></li>
+          <li className="nav-item"><Link to="/features">Features</Link></li>
+          <li className="nav-item"><Link to="/pricing">Pricing</Link></li>
+          <li className="nav-item"><Link to="/contact">Contact Us</Link></li>
+          <li className="nav-item"><Link to="/faq">FAQ</Link></li>
+          <li className="nav-item"><Link to="/forms">Forms</Link></li>
+          <li className="nav-item"><Link to="/dashboard">Dashboard</Link></li>
         </ul>
 
         {user ? (
@@ -46,11 +59,12 @@ const Header = () => {
             <button className="logout-button" onClick={handleLogout}>Logout</button>
           </div>
         ) : (
-          <Link to="/login">
-            <button className="login-button">Login</button>
-          </Link>
+          
+            <button className="login-button" onClick={handleLoginClick}>Login</button>
         )}
       </nav>
+
+      {showLoginOverlay && <LoginOverlay closeOverlay={closeOverlay} />}
     </header>
   );
 };

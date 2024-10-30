@@ -50,6 +50,7 @@ const Responses = () => {
           id: doc.id,
           ...doc.data(),
         }));
+        console.log(responses)
         setResponses(responses);
 
       } catch (error) {

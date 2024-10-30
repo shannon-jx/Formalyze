@@ -43,12 +43,46 @@ router.post('/generate-questions', async (req, res) => {
 });
 
 router.post('/analyze-sentiment', async (req, res) => {
-  const { responses, formQuestions } = req.body; // Expect both responses and formQuestions to be sent from the frontend
+  const { responses, formQuestions } = req.body;
 
   try {
     const promptContent = `
-      Perform sentiment analysis on the following survey responses: ${JSON.stringify(responses)}.
-      Here are the form questions: ${JSON.stringify(formQuestions)}.
+      Perform in-depth analysis on the following survey responses for overall sentiment and analysis on each question. 
+      Responses: ${JSON.stringify(responses)}.
+      Form Questions: ${JSON.stringify(formQuestions)}.
+      Return a JSON object strictly in the below structure:
+      {
+        "overallSentiment": {
+          "positive": "percentage",
+          "negative": "percentage",
+          "neutral": "percentage",
+          "trend": "positive/negative/neutral"
+        },
+        "questions": [
+          {
+            "questionId": "string",
+            "text": "string",
+            "sentiment": {
+              "positive": "percentage",
+              "negative": "percentage",
+              "neutral": "percentage"
+            },
+            "responsePatterns": {
+              "mostCommonKeywords": ["string", "string", "string"],
+              "distribution": {
+                "option1": "percentage",
+                "option2": "percentage",
+                "option3": "percentage"
+              }
+            }
+          }
+        ],
+        "commonThemes": ["string", "string"],
+        "actionableInsights": [
+          "string",
+          "string"
+        ]
+      }
     `;
     console.log('Prompt Content: ' + promptContent);
 
@@ -59,15 +93,15 @@ router.post('/analyze-sentiment', async (req, res) => {
           content: promptContent, 
         },
       ],
-      model: 'llama3-8b-8192',
-      temperature: 0.7,
-      max_tokens: 1024,
-      top_p: 1,
-      stream: false,
-      response_format: {
-        type: 'json_object',
-      },
-      stop: null,
+      model: "llama3-8b-8192", 
+        temperature: 1,
+        max_tokens: 8192,
+        top_p: 1,
+        stream: false,
+        response_format: {
+            type: "json_object"
+        },
+        stop: null
     });
 
     const responseMessage =
@@ -77,7 +111,7 @@ router.post('/analyze-sentiment', async (req, res) => {
     const lastBraceIndex = responseMessage.lastIndexOf('}');
     const jsonString = responseMessage.substring(firstBraceIndex, lastBraceIndex + 1);
     const jsonParsed = JSON.parse(jsonString);
-    
+    console.log(jsonParsed)
     res.json({ analysis: jsonParsed });
   } catch (error) {
     console.error('Error performing sentiment analysis:', error);

@@ -1,0 +1,184 @@
+:root {
+  --primary-color: #4285f4;
+  --secondary-color: #fbbc05;
+  --text-color: #202124;
+  --background-color: #f1f3f4;
+  --card-background: #ffffff;
+  --border-color: #dadce0;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Roboto', sans-serif;
+}
+
+.survey-edit-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.survey-edit-title {
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--primary-color);
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.question-card {
+  background-color: var(--card-background);
+  border-radius: 8px;
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+  padding: 24px;
+  margin-bottom: 20px;
+  transition: box-shadow 0.3s ease;
+}
+
+.question-card:hover {
+  box-shadow: 0 1px 3px 0 rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
+}
+
+.question-title-input {
+  font-size: 18px;
+  font-weight: 500;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid var(--border-color);
+  padding: 8px 0;
+  margin-bottom: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.question-title-input:focus {
+  outline: none;
+  border-bottom-color: var(--primary-color);
+}
+
+.question-type-selector {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
+
+.question-type-dropdown {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--card-background);
+  font-size: 14px;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.question-type-dropdown:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.options-container {
+  margin-top: 16px;
+}
+
+.option-item, .add-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.option-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  border: 2px solid var(--primary-color);
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.option-icon.multipleChoice, .option-icon.dropdown {
+  border-radius: 50%;
+}
+
+.option-icon.checkbox {
+  border-radius: 2px;
+}
+
+.option-input {
+  flex-grow: 1;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  padding: 8px 0;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.option-input:focus {
+  outline: none;
+  border-bottom-color: var(--primary-color);
+}
+
+.add-option {
+  color: var(--primary-color);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.question-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--text-color);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.btn-icon:hover {
+  opacity: 1;
+}
+
+.btn {
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #3367d6;
+}
+
+.btn-secondary {
+  background-color: var(--card-background);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(66, 133, 244, 0.04);
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.button-group .btn {

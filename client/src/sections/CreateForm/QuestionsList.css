@@ -1,0 +1,228 @@
+/* .question-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .input-select-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  .question-input {
+    flex: 1;
+    padding: 8px;
+    margin: 0px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .type-dropdown {
+    margin-right: 8px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .option-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .option-input {
+    margin-left: 8px;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .add-question-button, .submit-button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .add-question-button:hover, .submit-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .response-box {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .delete-icon {
+    cursor: pointer;
+    color: red;
+  }
+   */
+
+   /* General styling for the question card */
+
+   /* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Poppins:wght@400&display=swap');
+
+/* General styling for the question card */
+.question-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    padding-top: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.question-item:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Container for input fields and type selector */
+.input-select-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+/* Question input field styled with Inter Semi-Bold */
+.question-input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600; /* Semi-bold weight */
+    margin: 0px;
+}
+
+.question-input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+/* Dropdown selector for question type */
+.type-dropdown {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-right: 12px;
+    transition: border-color 0.3s ease;
+    font-size: 16px;
+}
+
+.type-dropdown:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+/* Container for each option (radio/checkbox) */
+.option-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Option input field (text input) with Poppins font */
+.option-input {
+    margin: 0px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif; /* Poppins for response options */
+}
+
+.option-input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+.delete-option {
+    margin-left: 10px;
+}
+
+/* Buttons for adding questions and submitting */
+.add-question-button, .create-button {
+    border-radius: 8px;
+    background-color: #6A94FF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-question-button:hover, .create-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.add-question-button:active, .create-button:active {
+    background-color: #004099;
+    transform: translateY(0);
+}
+
+/* Center the response box and adjust the width */
+.response-box {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Delete icon styling */
+.delete-icon {
+    cursor: pointer;
+    color: red;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.delete-icon:hover {
+    color: darkred;
+}
+
+/* Improved overall layout */
+ol.questions-container {
+    list-style-type: none;
+    padding: 0;
+}
+
+li.question-item {
+    list-style-type: none;
+}
+
+/* Add more space between bottom buttons */
+.bottom-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Rendered response options styled with Poppins font */
+.response-options {
+    margin-top: 10px;
+  }
+  
+.response-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  

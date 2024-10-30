@@ -1,0 +1,39 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .overlay-content {
+    background-color: #f8f3ea;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+  }
+  
+  .google-login-button {
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+  }
+  
+  .close-button {
+    margin-top: 10px;
+    color: #1A1D20;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    background-color: transparent;
+  }
+  
