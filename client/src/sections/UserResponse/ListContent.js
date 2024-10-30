@@ -186,11 +186,11 @@ const UserResponse = () => {
                 //     response.question = data.questions.find(q => String(q.id) === followUpId)?.question || '';
                 //     response.answer = formResponses[followUpId] || '';
                 // }
-                if (question.poked) {
-                        const followUpId = `${questionId}.1`;
-                        response.question = data.questions.find(q => String(q.id) === followUpId)?.question || '';
-                        response.answer = formResponses[followUpId] || '';
-                    }
+                // if (question.poked) {
+                //         const followUpId = `${questionId}.1`;
+                //         response.question = data.questions.find(q => String(q.id) === followUpId)?.question || '';
+                //         response.answer = formResponses[followUpId] || '';
+                //     }
 
                 return response;
             });

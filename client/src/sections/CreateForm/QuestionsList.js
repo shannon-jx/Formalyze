@@ -284,6 +284,8 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
     setQuestions(updatedQuestions);
   };
 
+
+
   const renderOptions = (question) => {
     switch (question.type) {
       case 'radio':
@@ -443,7 +445,12 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
                       <input
                         type="checkbox"
                         checked={question.poked || false}
-                        onChange={() => handleCheckboxChange(questionIndex)}
+                        onChange={() => {
+                          const updatedQuestions = questions.map((q, i) =>
+                            i === questionIndex ? { ...q, poked: !q.poked } : q
+                          );
+                          setQuestions(updatedQuestions);
+                        }}
                         className="question-checkbox"
                       />
                     </label>
