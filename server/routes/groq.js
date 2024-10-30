@@ -120,7 +120,8 @@ router.post('/generate-questions-title', async (req, res) => {
 router.post('/poking-questions',async(req,res)=>{
   const { question } = req.body;
   const {answer} = req.body;
-
+  // console.log(question);
+  // console.log(answer);
   try {
     const chatCompletion = await groq.chat.completions.create({
         messages: [
@@ -136,7 +137,7 @@ router.post('/poking-questions',async(req,res)=>{
         top_p: 1,
         stream: false,
         stop: null
-    });    
+    });     
     const pokeQuestion =
       chatCompletion.choices[0]?.message?.content || 'No response';
     // console.log(pokeQuestion);

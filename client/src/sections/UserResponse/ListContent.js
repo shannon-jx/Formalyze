@@ -11,7 +11,7 @@ const UserResponse = () => {
     const [formResponses, setFormResponses] = useState({});
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [isCurrentQuestionAnswered, setIsCurrentQuestionAnswered] = useState(false);
-    const [followUpQuestions, setFollowUpQuestions] = useState({});
+    // const [followUpQuestions, setFollowUpQuestions] = useState({});
 
     useEffect(() => {
         const fetchUserResponse = async () => {    
@@ -54,15 +54,22 @@ const UserResponse = () => {
         const currentQuestion = data.questions[currentQuestionIndex];
         if (currentQuestion.type === 'open-ended' && currentQuestion.poked && formResponses[currentQuestion.id]) {
             try {
+                console.log("currentQuestion",currentQuestion.question);
+                console.log("answer",formResponses[currentQuestion.id]);
                 const response = await axios.post('/api/poking-questions', {
                     question: currentQuestion.question,
                     answer: formResponses[currentQuestion.id]
+                    
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
                 });
                 console.log(response);
                 
                 // Create a new follow-up question object
                 const followUpQuestion = {
-                    id: `${currentQuestion.id}-followup`,
+                    id: `${currentQuestion.id}.1`,
                     type: 'open-ended',
                     question: response.data.message,
                     poked: false // We don't want to poke the follow-up question
@@ -98,9 +105,9 @@ const UserResponse = () => {
                                     type="radio"
                                     id={`${question.id}-${option.key}`}
                                     name={question.id}
-                                    value={option.value}
+                                    value={option.value || ''}
                                     onChange={() => handleInputChange(question.id, option.value)}
-                                    checked={formResponses[question.id] === option.value}
+                                    checked={formResponses[question.id] === option.value || false}
                                 />
                                 <label htmlFor={`${question.id}-${option.key}`}>{option.value}</label>
                             </div>
@@ -116,9 +123,10 @@ const UserResponse = () => {
                                     type="checkbox"
                                     id={`${question.id}-${option.key}`}
                                     name={question.id}
-                                    value={option.value}
+                                    value={option.value || ''}
                                     onChange={() => handleInputChange(question.id, option.value, true)}
-                                    checked={formResponses[question.id]?.includes(option.value)}
+                                    checked={Array.isArray(formResponses[question.id]) ? 
+                                        formResponses[question.id].includes(option.value) : false}
                                 />
                                 <label htmlFor={`${question.id}-${option.key}`}>{option.value}</label>
                             </div>
@@ -163,7 +171,7 @@ const UserResponse = () => {
             // Prepare submission data
             const submissionData = data.questions.map(question => {
                 const questionId = String(question.id); // Ensure question.id is a string
-                const isFollowUp = typeof questionId === 'string' && questionId.includes('-followup');
+                const isFollowUp = typeof questionId === 'string' && questionId.includes('.1');
                 const response = {
                     id: questionId,
                     question: question.question,
@@ -172,13 +180,18 @@ const UserResponse = () => {
                     isFollowUp: isFollowUp
                 };
 
-                if (isFollowUp) {
-                    response.originalQuestionId = questionId.split('-followup')[0];
-                } else if (question.poked) {
-                    const followUpId = `${questionId}-followup`;
-                    response.followUpQuestion = data.questions.find(q => String(q.id) === followUpId)?.question || '';
-                    response.followUpAnswer = formResponses[followUpId] || '';
-                }
+                // if (isFollowUp) {
+                //     response.originalQuestionId = questionId.split('.1')[0];
+                // } else if (question.poked) {
+                //     const followUpId = `${questionId}-followup`;
+                //     response.question = data.questions.find(q => String(q.id) === followUpId)?.question || '';
+                //     response.answer = formResponses[followUpId] || '';
+                // }
+                if (question.poked) {
+                        const followUpId = `${questionId}.1`;
+                        response.question = data.questions.find(q => String(q.id) === followUpId)?.question || '';
+                        response.answer = formResponses[followUpId] || '';
+                    }
 
                 return response;
             });
