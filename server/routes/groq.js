@@ -26,10 +26,7 @@ router.post('/generate-questions', async (req, res) => {
             type: "json_object"
         },
         stop: null
-    });
-
-
-    
+    });    
     const responseMessage =
       chatCompletion.choices[0]?.message?.content || 'No response';
 
@@ -152,6 +149,39 @@ router.post('/generate-questions-title', async (req, res) => {
     res.status(500).json({ error: 'Error generating chat' });
   }
 });
+
+
+router.post('/poking-questions',async(req,res)=>{
+  const { question } = req.body;
+  const {answer} = req.body;
+  // console.log(question);
+  // console.log(answer);
+  try {
+    const chatCompletion = await groq.chat.completions.create({
+        messages: [
+            {
+            role: "user",
+            content: `Generate only one open end follow up question base on the question and user's answer. Use their answer to ask futher question to find their motivation of their answer.Only generate one line of question, without add other things
+            the question is ${question} and answer is ${answer}`
+            },
+        ],
+        model: "llama3-8b-8192", 
+        temperature: 1,
+        max_tokens: 8192,
+        top_p: 1,
+        stream: false,
+        stop: null
+    });     
+    const pokeQuestion =
+      chatCompletion.choices[0]?.message?.content || 'No response';
+    // console.log(pokeQuestion);
+    res.json({ message: pokeQuestion });
+  } catch (error) {
+    console.error('Error generating chat:', error);
+    res.status(500).json({ error: 'Error generating chat' });
+  }
+});
+
 
 
 module.exports = router;
