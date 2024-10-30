@@ -172,10 +172,10 @@ router.post('/poking-questions',async(req,res)=>{
         stream: false,
         stop: null
     });     
-    const pokeQuestion =
+    const promptQuestion =
       chatCompletion.choices[0]?.message?.content || 'No response';
-    // console.log(pokeQuestion);
-    res.json({ message: pokeQuestion });
+    // console.log(promptQuestion);
+    res.json({ message: promptQuestion });
   } catch (error) {
     console.error('Error generating chat:', error);
     res.status(500).json({ error: 'Error generating chat' });
