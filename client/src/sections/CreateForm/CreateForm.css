@@ -124,64 +124,6 @@
     margin-right: 10px;
 }
 
-.question-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.input-select-container {
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-  margin-right: 10px;
-}
-
-.poke-container {
-  display: flex;
-  align-items: center;
-}
-
-.poke-label {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  color: #555;
-}
-
-.question-checkbox {
-  margin-left: 5px;
-}
-
-.question-input {
-  flex-grow: 1;
-  margin-right: 10px;
-}
-
-.type-dropdown {
-  margin-right: 10px;
-}
-
-.delete-icon {
-  cursor: pointer;
-  color: #dc3545;
-}
-
-.question-item {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 15px;
-  margin-bottom: 15px;
-}
-
-.add-question-button {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-
 .bottom-buttons {
     font: 16px;
     display: flex;

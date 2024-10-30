@@ -273,7 +273,6 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
       question: '',
       type: 'radio',
       options: [{ value: '' }],
-      poked: false,
     };
     setQuestions([...questions, newQuestion]);
   };
@@ -417,7 +416,7 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
       <ol className="questions-container">
         {questions.map((question, questionIndex) => (
           <li key={question.id} className="question-item">
-            <div className="question-header">
+            {selectedQuestionIndex === questionIndex ? (
               <div className="input-select-container">
                 <input
                   type="text"
@@ -436,26 +435,18 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
                   <option value="slider">Slider</option>
                   <option value="open-ended">Open-ended</option>
                 </select>
-                {question.type === 'open-ended' && (
-                  <div className="poke-container">
-                    <label className="poke-label">
-                      Poke
-                      <input
-                        type="checkbox"
-                        checked={question.poked || false}
-                        onChange={() => handleCheckboxChange(questionIndex)}
-                        className="question-checkbox"
-                      />
-                    </label>
-                  </div>
-                )}
                 <FaTrash
                   className="delete-icon"
                   onClick={() => deleteQuestion(questionIndex)}
                 />
               </div>
-            </div>
-            {renderInputField(question, questionIndex)}
+            ) : (
+              <div onClick={() => setSelectedQuestionIndex(questionIndex)}>
+                <p>{question.question || "Click to edit this question"}</p>
+                {renderOptions(question)}
+              </div>
+            )}
+            {selectedQuestionIndex === questionIndex && renderInputField(question, questionIndex)}
           </li>
         ))}
       </ol>
@@ -474,3 +465,4 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
 };
 
 export default QuestionsList;
+
