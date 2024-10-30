@@ -140,8 +140,6 @@ const UserResponse = () => {
                         max="10"
                         value={formResponses[question.id] || "5"}
                         onChange={(e) => handleInputChange(question.id, e.target.value)}
-                        value={formResponses[question.id] || "5"}
-                        onChange={(e) => handleInputChange(question.id, e.target.value)}
                     />
                 );
             case 'open-ended':
@@ -149,8 +147,6 @@ const UserResponse = () => {
                     <textarea 
                         rows="4" 
                         cols="50"
-                        value={formResponses[question.id] || ""}
-                        onChange={(e) => handleInputChange(question.id, e.target.value)}
                         value={formResponses[question.id] || ""}
                         onChange={(e) => handleInputChange(question.id, e.target.value)}
                     ></textarea>
@@ -248,11 +244,6 @@ const UserResponse = () => {
                                 Next
                             </button>
                         </div>
-                    </div>
-                    
-                    {currentQuestionIndex === data.questions.length - 1 && (
-                        <button type="submit" className="submit-button">Submit</button>
-                    )}
                     </div>
                     
                     {currentQuestionIndex === data.questions.length - 1 && (
