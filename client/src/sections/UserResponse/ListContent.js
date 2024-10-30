@@ -51,7 +51,7 @@ const UserResponse = () => {
 
     const handleNextQuestion = async () => {
         const currentQuestion = data.questions[currentQuestionIndex];
-        if (currentQuestion.type === 'open-ended' && currentQuestion.poked && formResponses[currentQuestion.id]) {
+        if (currentQuestion.type === 'open-ended' && currentQuestion.requiresPrompt && formResponses[currentQuestion.id]) {
             try {
                 console.log("currentQuestion",currentQuestion.question);
                 console.log("answer",formResponses[currentQuestion.id]);
@@ -71,7 +71,7 @@ const UserResponse = () => {
                     id: `${currentQuestion.id}.1`,
                     type: 'open-ended',
                     question: response.data.message,
-                    poked: false // We don't want to poke the follow-up question
+                    requiresPrompt: false // We don't want to prompt the follow-up question
                 };
                 
                 // Insert the follow-up question after the current question
@@ -87,7 +87,7 @@ const UserResponse = () => {
                 console.error('Error generating follow-up question:', error);
             }
         } else {
-            // If it's not a poked open-ended question, just move to the next question
+            // If it's not an open-ended question that requires prompting, just move to the next question
             setCurrentQuestionIndex(prev => Math.min(data.questions.length - 1, prev + 1));
         }
         setIsCurrentQuestionAnswered(false);
@@ -165,7 +165,7 @@ const UserResponse = () => {
             const userDocRef = doc(db, 'users', userId);
             const formsCollectionRef = collection(userDocRef, 'forms');
             const formDocRef = doc(formsCollectionRef, formId);
-            const formData = collection(formDocRef, 'response');
+            const formData = collection(formDocRef, 'responses');
             
             // Prepare submission data
             const submissionData = data.questions.map(question => {
@@ -181,12 +181,12 @@ const UserResponse = () => {
 
                 // if (isFollowUp) {
                 //     response.originalQuestionId = questionId.split('.1')[0];
-                // } else if (question.poked) {
+                // } else if (question.requiresPrompt) {
                 //     const followUpId = `${questionId}-followup`;
                 //     response.question = data.questions.find(q => String(q.id) === followUpId)?.question || '';
                 //     response.answer = formResponses[followUpId] || '';
                 // }
-                // if (question.poked) {
+                // if (question.requiresPrompt) {
                 //         const followUpId = `${questionId}.1`;
                 //         response.question = data.questions.find(q => String(q.id) === followUpId)?.question || '';
                 //         response.answer = formResponses[followUpId] || '';

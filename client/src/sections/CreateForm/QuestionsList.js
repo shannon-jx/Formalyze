@@ -273,7 +273,7 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
       question: '',
       type: 'radio',
       options: [{ value: '' }],
-      poked: false,
+      requiresPrompt: false,
     };
     setQuestions([...questions, newQuestion]);
   };
@@ -439,15 +439,15 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
                   <option value="open-ended">Open-ended</option>
                 </select>
                 {question.type === 'open-ended' && (
-                  <div className="poke-container">
-                    <label className="poke-label">
-                      Poke
+                  <div className="prompt-container">
+                    <label className="prompt-label">
+                      Prompt
                       <input
                         type="checkbox"
-                        checked={question.poked || false}
+                        checked={question.requiresPrompt || false}
                         onChange={() => {
                           const updatedQuestions = questions.map((q, i) =>
-                            i === questionIndex ? { ...q, poked: !q.poked } : q
+                            i === questionIndex ? { ...q, requiresPrompt: !q.requiresPrompt } : q
                           );
                           setQuestions(updatedQuestions);
                         }}
