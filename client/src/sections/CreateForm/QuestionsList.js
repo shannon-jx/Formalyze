@@ -273,6 +273,7 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
       question: '',
       type: 'radio',
       options: [{ value: '' }],
+      requiresPrompt: false,
     };
     setQuestions([...questions, newQuestion]);
   };
@@ -282,6 +283,8 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
     updatedQuestions = updatedQuestions.map((question, i) => ({ ...question, id: i + 1 }));
     setQuestions(updatedQuestions);
   };
+
+
 
   const renderOptions = (question) => {
     switch (question.type) {
@@ -416,7 +419,7 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
       <ol className="questions-container">
         {questions.map((question, questionIndex) => (
           <li key={question.id} className="question-item">
-            {selectedQuestionIndex === questionIndex ? (
+            <div className="question-header">
               <div className="input-select-container">
                 <input
                   type="text"
@@ -435,18 +438,31 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
                   <option value="slider">Slider</option>
                   <option value="open-ended">Open-ended</option>
                 </select>
+                {question.type === 'open-ended' && (
+                  <div className="prompt-container">
+                    <label className="prompt-label">
+                      Prompt
+                      <input
+                        type="checkbox"
+                        checked={question.requiresPrompt || false}
+                        onChange={() => {
+                          const updatedQuestions = questions.map((q, i) =>
+                            i === questionIndex ? { ...q, requiresPrompt: !q.requiresPrompt } : q
+                          );
+                          setQuestions(updatedQuestions);
+                        }}
+                        className="question-checkbox"
+                      />
+                    </label>
+                  </div>
+                )}
                 <FaTrash
                   className="delete-icon"
                   onClick={() => deleteQuestion(questionIndex)}
                 />
               </div>
-            ) : (
-              <div onClick={() => setSelectedQuestionIndex(questionIndex)}>
-                <p>{question.question || "Click to edit this question"}</p>
-                {renderOptions(question)}
-              </div>
-            )}
-            {selectedQuestionIndex === questionIndex && renderInputField(question, questionIndex)}
+            </div>
+            {renderInputField(question, questionIndex)}
           </li>
         ))}
       </ol>
@@ -465,4 +481,3 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
 };
 
 export default QuestionsList;
-
