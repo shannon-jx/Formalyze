@@ -1,99 +1,57 @@
 .analysis-section {
     padding: 20px;
-    background-color: #f9fafb;
-    border-radius: 12px;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.question-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
     margin-top: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-h3 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-}
-
-h4 {
-    font-size: 20px;
-    font-weight: bold;
-    color: #444;
-}
-
-h5 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 20px;
-    color: #555;
-}
-
-.analysis-content {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.chart-container {
-    max-width: 400px;
-    margin: 0 auto;
-    position: relative;
 }
 
 .sentiment-overview,
 .question-analysis,
 .common-themes,
 .actionable-insights {
-    padding: 20px;
-    background-color: #ffffff;
+    background: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease-in-out;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.sentiment-overview:hover,
-.question-analysis:hover,
-.common-themes:hover,
-.actionable-insights:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-}
-
-ul {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-li {
-    padding: 5px 0;
-    font-size: 16px;
-    color: #666;
-    transition: color 0.3s ease-in-out;
-}
-
-li:hover {
-    color: #333;
-}
-
-p {
-    font-size: 16px;
-    color: #444;
+.chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
 }
 
 .loading {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+    text-align: center;
+    margin: 20px 0;
 }
 
 .spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid rgba(0, 0, 0, 0.1);
-    border-top-color: #3498db;
+    border: 4px solid rgba(0, 0, 0, 0.1);
     border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 40px;
+    height: 40px;
     animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-    to {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
         transform: rotate(360deg);
     }
 }

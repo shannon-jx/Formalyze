@@ -29,14 +29,13 @@ const AnalysisTab = ({ responses, formQuestions }) => {
     analyzeSentiment();
   }, [responses, formQuestions]);
 
-  // Function to render Pie Charts for sentiment analysis with animations and hover effects
   const renderSentimentChart = (sentiment) => {
     const data = {
       labels: ['Positive', 'Negative', 'Neutral'],
       datasets: [{
         data: [parseInt(sentiment.positive), parseInt(sentiment.negative), parseInt(sentiment.neutral)],
         backgroundColor: ['#36a2eb', '#ff6384', '#ffcd56'],
-        hoverOffset: 10, 
+        hoverOffset: 10,
       }]
     };
     const options = {
@@ -44,7 +43,7 @@ const AnalysisTab = ({ responses, formQuestions }) => {
       plugins: {
         tooltip: {
           callbacks: {
-            label: function(tooltipItem) {
+            label: function (tooltipItem) {
               return `${tooltipItem.label}: ${tooltipItem.raw}%`;
             }
           }
@@ -69,52 +68,62 @@ const AnalysisTab = ({ responses, formQuestions }) => {
       ) : (
         <div className="analysis-content">
           {analysisResult ? (
-            <>
-              {/* Overall Sentiment */}
-              <div className="sentiment-overview">
-                <h4>Overall Sentiment</h4>
-                <div className="chart-container">
-                  {renderSentimentChart(analysisResult.analysis.overallSentiment)}
-                </div>
-              </div>
-
-              {/* Individual Question Analysis */}
-              {analysisResult.analysis.questions.map((question) => (
-                <div key={question.questionId} className="question-analysis">
-                  <h5>Question {question.questionId}: {question.text}</h5>
-                  <p><strong>Sentiment:</strong></p>
+            <div>
+              {/* Overall Analysis Grid */}
+              <div className="dashboard-grid">
+                <div className="sentiment-overview">
+                  <h4>Overall Sentiment</h4>
                   <div className="chart-container">
-                    {renderSentimentChart(question.sentiment)}
+                    {renderSentimentChart(analysisResult.analysis.overallSentiment)}
                   </div>
-                  <p><strong>Response Patterns:</strong></p>
+                </div>
+
+                <div className="common-themes">
+                  <h4>Common Themes</h4>
                   <ul>
-                    {question.responsePatterns.mostCommonKeywords.map((keyword, index) => (
-                      <li key={index}>{keyword}</li>
+                    {analysisResult.analysis.commonThemes.map((theme, index) => (
+                      <li key={index}>{theme}</li>
                     ))}
                   </ul>
                 </div>
-              ))}
 
-              {/* Common Themes */}
-              <div className="common-themes">
-                <h4>Common Themes</h4>
-                <ul>
-                  {analysisResult.analysis.commonThemes.map((theme, index) => (
-                    <li key={index}>{theme}</li>
-                  ))}
-                </ul>
+                <div className="actionable-insights">
+                  <h4>Actionable Insights</h4>
+                  <ul>
+                    {analysisResult.analysis.actionableInsights.map((insight, index) => (
+                      <li key={index}>{insight}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
 
-              {/* Actionable Insights */}
-              <div className="actionable-insights">
-                <h4>Actionable Insights</h4>
-                <ul>
-                  {analysisResult.analysis.actionableInsights.map((insight, index) => (
-                    <li key={index}>{insight}</li>
-                  ))}
-                </ul>
+              {/* Question Analysis Grid */}
+              <div className="question-analyses">
+                <h4>Individual Question Analysis</h4>
+                <div className="question-grid">
+                  {analysisResult.analysis.questions.map((question) => {
+                    if (!String(question.questionId).includes('.')) {
+                      return (
+                        <div key={question.questionId} className="question-analysis">
+                          <h5>Question {question.questionId}: {question.text}</h5>
+                          <p><strong>Sentiment:</strong></p>
+                          <div className="chart-container">
+                            {renderSentimentChart(question.sentiment)}
+                          </div>
+                          <p><strong>Response Patterns:</strong></p>
+                          <ul>
+                            {question.responsePatterns.mostCommonKeywords.map((keyword, index) => (
+                              <li key={index}>{keyword}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+                </div>
               </div>
-            </>
+            </div>
           ) : (
             <p>No sentiment analysis results yet.</p>
           )}
