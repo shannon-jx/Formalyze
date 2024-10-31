@@ -1,50 +1,89 @@
 .results-tab {
-    margin-top: 20px;
+  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
 .overview-section {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .overview-card {
-    padding: 20px;
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    flex-basis: 48%;
-    text-align: center;
+  background-color: #f0f4f8;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  width: 48%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .overview-card h2 {
-    margin: 0;
-    color: #000000;
+  margin: 10px 0;
+  font-size: 24px;
 }
 
 .overview-card p {
-    margin: 5px 0 0;
-    color: #555;
+  color: #555;
+}
+
+.response-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.nav-button {
+  background-color: transparent;
+  color: black;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 10px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-button:disabled {
+  background-color: transparent;
+  cursor: not-allowed;
 }
 
 .results-section {
-    margin-top: 20px;
+  background-color: #f9fafc;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.responses-table {
-    width: 100%;
-    border-collapse: collapse;
+.response-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.responses-table th,
-.responses-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
+.question-answer-block {
+  padding: 15px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-.responses-table th {
-    background-color: #f9f9f9;
+.question-answer-block:last-child {
+  border-bottom: none;
 }
 
-.responses-table td {
-    text-align: center;
+.question-text, .answer-text {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.question-text {
+  font-weight: bold;
+}
+
+.answer-text {
+  color: #555;
 }
