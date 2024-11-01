@@ -1,108 +1,176 @@
 /* src/sections/Dashboard/Dashboard.css */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+.app-container {
+    background-color: #f8f3ea;
+}
+
 .dashboard-container {
     display: flex;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-  }
-  
-  .sidebar {
-    width: 250px;
-    background-color: #f4f4f4;
-    padding: 20px;
+    height: auto;
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f3ea;
+    color: #1A1D20;
+    margin: 40px;
+    padding: 0;
     box-sizing: border-box;
-    border-right: 1px solid #ddd;
-    overflow-y: auto;
-  }
-  
-  .main-content {
-    flex: 1;
+}
+
+.sidebar {
+    width: 335px;
+    height: auto;
+    background-color: transparent;
     padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
-  }
-  
-  .nav-card {
-    background-color: #fff;
-    padding: 15px;
+    /* position: fixed; */
+}
+
+.sidebar h2 {
+    font-size: 24px;
+    font-weight: bold;
     margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  
-  .nav-card h2 {
+    color: #1A1D20;
+    text-align: center;
+}
+
+.main-content {
+    flex: 1;
+    padding: 40px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    background-color: #f8f3ea;
+}
+
+.nav-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 16px;
+    margin-bottom: 30px;
+    border: 2px solid #7a94ff;
+    border-radius: 25px;
+    max-width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-card h2 {
     margin-top: 0;
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
-  .form-list {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #1A1D20;
+}
+
+.form-list {
     list-style: none;
     padding: 0;
     margin: 0;
-  }
-  
-  .form-list li {
-    padding: 10px;
+}
+
+.form-list li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
     cursor: pointer;
     border-bottom: 1px solid #eee;
     position: relative;
-  }
-  
-  .form-list li:hover {
+    font-size: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.form-list li:hover {
     background-color: #eaeaea;
-  }
-  
-  .form-list li.active {
+    transform: translateY(-2px);
+}
+
+.form-list li.active {
     background-color: #dcdcdc;
     font-weight: bold;
-  }
-  
-  .survey-actions {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-  }
-  
-  .survey-actions button {
-    margin-left: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    border-radius: 3px;
-  }
-  
-  .survey-actions button:hover {
-    background-color: #0056b3;
-  }
-  
-  .button-group {
+    color: #7a94ff;
+}
+
+.survey-actions {
+    right: 15px;
+    top: 15px;
     display: flex;
     gap: 10px;
-    margin-top: 10px;
-  }
-  
-  .button-group button {
+    margin-top: 8px;
+}
+
+.survey-actions button {
+    padding: 8px 15px;
+    cursor: pointer;
+    border: none;
+    background-color: #7a94ff;
+    color: white;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.survey-actions button:hover {
+    background-color: #5a74d1;
+    transform: translateY(-2px);
+}
+
+.button-group {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.button-group button {
     flex: 1;
     padding: 8px;
     cursor: pointer;
     border: none;
-    background-color: #007bff;
+    background-color: #7a94ff;
     color: white;
-    border-radius: 3px;
-  }
-  
-  .button-group button.active {
-    background-color: #0056b3;
-  }
-  
-  .loading,
-  .error,
-  .no-surveys {
+    border-radius: 4px;
+    font-size: 18px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button-group button.active {
+    background-color: #5a74d1;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button-group button:hover {
+    background-color: #5a74d1;
+    transform: translateY(-2px);
+}
+
+.loading,
+.error,
+.no-surveys {
     text-align: center;
     margin-top: 50px;
-    font-size: 18px;
-  }
-  
+    font-size: 24px;
+    color: #1A1D20;
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid #7a94ff;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

@@ -1,62 +1,72 @@
 // src/sections/Dashboard/components/ResponsesView.js
-import React, { useEffect, useState } from 'react';
-import { collection, query, getDocs } from 'firebase/firestore';
-import { db } from '../../firebase'; // Adjust the path based on actual location
+import React, { useState } from 'react';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 // import './ResponsesView.css'; // Create and style as needed
 
-function ResponsesView({ formId, userId }) {
-  const [responses, setResponses] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const ResponsesView = ({ formQuestions = [], responses = [] }) => {
+  const [currentResponseIndex, setCurrentResponseIndex] = useState(0);
+  const totalResponses = responses.length;
 
-  useEffect(() => {
-    const fetchResponses = async () => {
-      try {
-        if (!userId) {
-          throw new Error('User not authenticated');
-        }
-        const responsesRef = collection(db, 'users', userId, 'forms', formId, 'responses');
-        const q = query(responsesRef);
-        const querySnapshot = await getDocs(q);
-        const responsesData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setResponses(responsesData);
-        setLoading(false);
-      } catch (err) {
-        console.error("Error fetching responses: ", err);
-        setError(err.message);
-        setLoading(false);
-      }
-    };
+  const handlePrevious = () => {
+    setCurrentResponseIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+  };
 
-    if (userId && formId) {
-      fetchResponses();
-    }
-  }, [formId, userId]);
+  const handleNext = () => {
+    setCurrentResponseIndex((prevIndex) => Math.min(prevIndex + 1, totalResponses - 1));
+  };
 
-  if (loading) {
-    return <div>Loading responses...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  const currentResponse = responses[currentResponseIndex];
 
   return (
     <div className="responses-view">
-      <h3>Responses</h3>
-      {responses.length === 0 ? (
-        <p>No responses yet.</p>
-      ) : (
-        <ul className="responses-list">
-          {responses.map(response => (
-            <li key={response.id}>
-              <pre>{JSON.stringify(response, null, 2)}</pre>
-            </li>
-          ))}
-        </ul>
-      )}
+      <section className="overview-section">
+        <div className="overview-card">
+          <h2>{totalResponses}</h2>
+          <p>Total Responses</p>
+        </div>
+        <div className="overview-card">
+          <h2>{formQuestions.length}</h2>
+          <p>Total Questions</p>
+        </div>
+      </section>
+
+      <section className="response-navigation">
+        <button 
+          onClick={handlePrevious} 
+          disabled={currentResponseIndex === 0} 
+          className="nav-button"
+        >
+          <FaChevronLeft />
+        </button>
+        <span className="response-indicator">
+          Response: {currentResponseIndex + 1} / {totalResponses}
+        </span>
+        <button 
+          onClick={handleNext} 
+          disabled={currentResponseIndex === totalResponses - 1} 
+          className="nav-button"
+        >
+          <FaChevronRight />
+        </button>
+      </section>
+
+      <section className="results-section">
+        <h3>Collected Response</h3>
+        {currentResponse ? (
+          <div className="response-content">
+            {currentResponse.responses.map((response, index) => (
+              <div key={response.id} className="question-answer-block">
+                <p><strong>Question {index + 1}:</strong> {response.question}</p>
+                <p><strong>Answer:</strong> {response.answer || 'No response'}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No responses available for this form.</p>
+        )}
+      </section>
     </div>
   );
-}
+};
 
 export default ResponsesView;

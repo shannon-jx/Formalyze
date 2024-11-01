@@ -52,6 +52,12 @@ function Sidebar({ selectedFormId, setSelectedFormId, setCurrentView, userId }) 
 
   return (
     <div className="sidebar">
+        {selectedFormId && (
+        <div className="nav-card">
+          <FormNavigation setCurrentView={setCurrentView} />
+        </div>
+        )}
+
       {/* Your Forms Navigation Card */}
       <div className="nav-card">
         <h2>Your Forms</h2>
@@ -76,16 +82,9 @@ function Sidebar({ selectedFormId, setSelectedFormId, setCurrentView, userId }) 
             textAlign: 'center'
           }}
         >
-          Create Form
+          Create New Form
         </Link>
       </div>
-
-      {/* Current Form Navigation Card */}
-      {selectedFormId && (
-        <div className="nav-card">
-          <FormNavigation setCurrentView={setCurrentView} />
-        </div>
-      )}
     </div>
   );
 }

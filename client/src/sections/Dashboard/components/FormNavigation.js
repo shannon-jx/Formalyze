@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase'; // Adjust the path based on actual location
 import { getAuth } from 'firebase/auth';
-// import './FormNavigation.css'; // Create and style as needed
+import './FormNavigation.css';
 
 function FormNavigation({ setCurrentView }) {
   const [formName, setFormName] = useState('');
