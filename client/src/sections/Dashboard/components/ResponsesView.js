@@ -1,7 +1,7 @@
 // src/sections/Dashboard/components/ResponsesView.js
 import React, { useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-// import './ResponsesView.css'; // Create and style as needed
+import './ResponsesView.css';
 
 const ResponsesView = ({ formQuestions = [], responses = [] }) => {
   const [currentResponseIndex, setCurrentResponseIndex] = useState(0);

@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar';
 import MainContent from './components/MainContent';
 import './Dashboard.css';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import Lenis from '@studio-freight/lenis';
 
 function Dashboard() {
   const [selectedFormId, setSelectedFormId] = useState(null);
@@ -32,6 +33,26 @@ function Dashboard() {
       localStorage.removeItem('selectedFormId');
     }
   }, [selectedFormId]);
+
+  useEffect(() => {
+    // Initialize Lenis for smooth scrolling
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    });
+
+    function animate(time) {
+      lenis.raf(time);
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+
+    // Cleanup on unmount
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
   
   return (
     <div className="dashboard-container">

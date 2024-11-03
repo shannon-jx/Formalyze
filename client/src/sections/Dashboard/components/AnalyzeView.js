@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Pie } from 'react-chartjs-2';
 import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
-// import './AnalyzeView.css'; // Create and style as needed
+import './AnalyzeView.css';
 
 Chart.register(ArcElement, Tooltip, Legend);
 
