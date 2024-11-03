@@ -73,7 +73,6 @@ function SurveyListComponent({ selectedFormId, setSelectedFormId, userId }) {
           >
             {survey.title || 'Untitled Form'}
             <div className="survey-actions">
-              <button onClick={(e) => { e.stopPropagation(); /* Implement edit functionality if needed */ }}>Edit</button>
               <button onClick={(e) => { e.stopPropagation(); handleDelete(survey.id); }}>Delete</button>
             </div>
           </li>

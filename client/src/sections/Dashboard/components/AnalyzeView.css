@@ -1,0 +1,212 @@
+/* src/sections/Dashboard/components/AnalyzeView.css */
+
+/* Import the 'Inter' font to maintain consistency */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+.analyze-view {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f3ea;
+    color: #1A1D20;
+    padding: 40px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    width: 1200px;
+}
+
+.analyze-view h3 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #1A1D20;
+}
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+}
+
+.spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #7a94ff;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.analysis-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.sentiment-overview,
+.common-themes,
+.actionable-insights {
+    background-color: #fff;
+    padding: 30px;
+    border: 2px solid #7a94ff;
+    border-radius: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sentiment-overview h4,
+.common-themes h4,
+.actionable-insights h4 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #1A1D20;
+    text-align: center;
+}
+
+.chart-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.common-themes ul,
+.actionable-insights ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+}
+
+.common-themes li,
+.actionable-insights li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.common-themes li:last-child,
+.actionable-insights li:last-child {
+    border-bottom: none;
+}
+
+.question-analyses {
+    margin-top: 40px;
+}
+
+.question-analyses h4 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #1A1D20;
+    text-align: center;
+}
+
+.question-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.question-analysis {
+    background-color: #fff;
+    padding: 25px;
+    border: 2px solid #7a94ff;
+    border-radius: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.question-analysis:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.question-analysis h5 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #1A1D20;
+}
+
+.question-analysis p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.question-analysis ul {
+    list-style: disc inside;
+    padding-left: 20px;
+    font-size: 16px;
+}
+
+.button-group {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.button-group .btn-primary,
+.button-group .btn-secondary {
+    background-color: #7a94ff;
+    color: #fff;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button-group .btn-primary:hover,
+.button-group .btn-secondary:hover {
+    background-color: #5a74d1;
+    transform: translateY(-2px);
+}
+
+.button-group .btn-secondary {
+    background-color: #bbb;
+}
+
+.button-group .btn-secondary:hover {
+    background-color: #999;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .analyze-view {
+        padding: 20px;
+    }
+
+    .dashboard-grid,
+    .question-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sentiment-overview,
+    .common-themes,
+    .actionable-insights,
+    .question-analysis {
+        padding: 20px;
+    }
+
+    .question-analysis h5 {
+        font-size: 18px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

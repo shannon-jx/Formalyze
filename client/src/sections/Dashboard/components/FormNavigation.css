@@ -1,0 +1,46 @@
+.form-navigation {
+  font-family: 'Inter', sans-serif;
+  background-color: #fff;
+  color: #1A1D20;
+  padding: 20px;ç
+}
+
+.form-navigation h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #1A1D20;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.button-group button {
+  background-color: #7a94ff;
+  color: #fff;
+  padding: 8px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button-group button:hover {
+  background-color: #5a74d1;
+  transform: translateY(-2px);
+}
+
+.button-group button.active {
+  background-color: #5a74d1;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button-group button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(122, 148, 255, 0.5);
+}
