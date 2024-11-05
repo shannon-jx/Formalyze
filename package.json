@@ -2,7 +2,6 @@
   "dependencies": {
     "chart.js": "^4.4.5",
     "firebase": "^10.14.1",
-    "qrcode": "^1.5.4",
     "react-chartjs-2": "^5.2.0",
     "react-firebase-hooks": "^5.1.1"
   }
