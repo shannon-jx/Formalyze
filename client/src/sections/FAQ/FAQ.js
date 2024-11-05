@@ -13,7 +13,7 @@ const FAQ = () => {
     },
     {
       question: "Is there a limit on the number of forms I can create?",
-      answer: "Yes, the Basic Plan allows 10 forms per month, while the Pro Plan offers unlimited forms."
+      answer: "Yes, the Free Plan allows 5 forms per month with a limit of 20 responses. Beyond that, every credit purchased is the equivalent of one form."
     },
     {
       question: "Can I upgrade my plan later?",

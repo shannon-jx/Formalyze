@@ -8,10 +8,10 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 
 const Header = () => {
   const navigate = useNavigate();
-  const location = useLocation(); // Get the current location
+  const location = useLocation(); 
   const [user, setUser] = useState(null);
   const auth = getAuth();
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1000);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [showLoginOverlay, setShowLoginOverlay] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const drawerRef = useRef(null);
@@ -25,7 +25,7 @@ const Header = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 1000);
+      setIsMobile(window.innerWidth <= 768);
     };
 
     window.addEventListener('resize', handleResize);
@@ -72,8 +72,8 @@ const Header = () => {
   };
 
   return (
-    <header className="header">
-      <nav className="navbar">
+    <header className={`header ${location.pathname}`} >
+      <nav className={`navbar ${location.pathname === '/home' ? 'active' : ''}`}>
         {isMobile && (
           <button className="menu-icon" onClick={toggleMobileMenu}>
             {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
@@ -84,11 +84,11 @@ const Header = () => {
         </div>
         {!isMobile && (
           <div className="nav-links">
-            <Link to="/home">Home</Link>
-            <Link to="/pricing">Pricing</Link>
-            <Link to="/contact">Contact Us</Link>
-            <Link to="/faq">FAQ</Link>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link className={location.pathname === '/home' ? 'active' : ''} to="/home">Home</Link>
+            <Link className={location.pathname === '/pricing' ? 'active' : ''} to="/pricing">Pricing</Link>
+            <Link className={location.pathname === '/contact' ? 'active' : ''} to="/contact">Contact Us</Link>
+            <Link className={location.pathname === '/faq' ? 'active' : ''} to="/faq">FAQ</Link>
+            <Link className={location.pathname === '/dashboard' ? 'active' : ''} to="/dashboard">Dashboard</Link>
           </div>
         )}
         {user ? (

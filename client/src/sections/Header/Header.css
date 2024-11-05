@@ -73,7 +73,12 @@
     color: #ffffff;
 }
 
-@media (max-width: 1000px) {
+.nav-links a.active {
+    color: #7a94ff;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
     .menu-icon {
         display: block;
     }
@@ -148,6 +153,7 @@
 
 .drawer-item.active a {
     color: #7a94ff; 
+    font-weight: bold;
 }
 
 .drawer-item a:hover {

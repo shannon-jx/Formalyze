@@ -8,6 +8,7 @@
 
 .dashboard-container {
     display: flex;
+    flex-direction: row; /* Default to row */
     height: auto;
     font-family: 'Inter', sans-serif;
     background-color: #f8f3ea;
@@ -24,7 +25,6 @@
     padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
-    /* position: fixed; */
 }
 
 .sidebar h2 {
@@ -53,14 +53,6 @@
     border-radius: 25px;
     max-width: 100%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.nav-card h2 {
-    margin-top: 0;
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: #1A1D20;
 }
 
 .form-list {
@@ -93,8 +85,6 @@
 }
 
 .survey-actions {
-    right: 15px;
-    top: 15px;
     display: flex;
     gap: 10px;
     margin-top: 8px;
@@ -109,11 +99,6 @@
     border-radius: 4px;
     font-size: 16px;
     transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.survey-actions button:hover {
-    background-color: #5a74d1;
-    transform: translateY(-2px);
 }
 
 .button-group {
@@ -135,16 +120,6 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.button-group button.active {
-    background-color: #5a74d1;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.button-group button:hover {
-    background-color: #5a74d1;
-    transform: translateY(-2px);
-}
-
 .loading,
 .error,
 .no-surveys {
@@ -154,23 +129,37 @@
     color: #1A1D20;
 }
 
+/* Media queries for mobile responsiveness */
 @media (max-width: 768px) {
     .dashboard-container {
-        flex-direction: column;
+        flex-direction: column; /* Stack vertically on mobile */
+        padding: 16px; /* Less padding on mobile */
     }
 
     .sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 2px solid #7a94ff;
+        width: 100%; /* Full width on mobile */
+        border-bottom: 2px solid #7a94ff; /* Bottom border for visual separation */
     }
 
     .main-content {
-        padding: 20px;
+        padding: 20px; /* Less padding */
     }
 
     .button-group {
-        flex-direction: column;
+        flex-direction: column; /* Stack buttons vertically */
         gap: 10px;
+    }
+
+    .form-list li {
+        font-size: 18px; /* Slightly smaller text */
+        padding: 12px; /* Less padding for list items */
+    }
+
+    .nav-card {
+        padding: 12px; /* Less padding on cards */
+    }
+
+    .survey-actions button {
+        font-size: 14px; /* Smaller button text */
     }
 }
