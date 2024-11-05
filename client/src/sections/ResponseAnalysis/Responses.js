@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import './Responses.css';
 import ResultsTab from './Components/ResultsTab';
 import AnalysisTab from './Components/AnalysisTab';
+import ShareButton from '../Dashboard/ShareButton';
 
 const Responses = () => {
   const { formId } = useParams();
@@ -14,23 +15,22 @@ const Responses = () => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [activeTab, setActiveTab] = useState('results');
-
   const auth = getAuth();
 
+  // Monitor authentication status
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
       } else {
         setUser(null);
-        console.log('User is logged out');
         alert('Please log in to view the form responses.');
       }
     });
-
     return () => unsubscribe();
   }, [auth]);
 
+  // Fetch form data and responses
   useEffect(() => {
     const fetchFormData = async () => {
       if (!user) return;
@@ -46,11 +46,11 @@ const Responses = () => {
 
         const responsesCollectionRef = collection(db, 'users', user.uid, 'forms', formId, 'responses');
         const responsesSnapshot = await getDocs(responsesCollectionRef);
-        const responses = responsesSnapshot.docs.map(doc => ({
+        const fetchedResponses = responsesSnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data(),
         }));
-        setResponses(responses);
+        setResponses(fetchedResponses);
       } catch (error) {
         console.error('Error fetching form data:', error);
       } finally {
@@ -63,26 +63,20 @@ const Responses = () => {
     }
   }, [formId, user]);
 
-  if (loading) {
-    return <p>Loading form data...</p>;
-  }
+  // Handle loading and authentication checks
+  if (loading) return <p>Loading form data...</p>;
+  if (!user) return <p>Please log in to view the form responses.</p>;
+  if (formQuestions.length === 0) return <p>No questions available in this form.</p>;
 
-  if (!user) {
-    return <p>Please log in to view the form responses.</p>;
-  }
-
-  if (formQuestions.length === 0) {
-    return <p>No questions available in this form.</p>;
-  }
-
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
+  const handleTabClick = (tab) => setActiveTab(tab);
+  const pageUrl = `https://your-website.com/forms/${formId}`;
 
   return (
     <div className="admin-overview-container">
       <header className="admin-header">
         <h1>Form Overview</h1>
+        {/* Share button placed below the header */}
+        <ShareButton url={pageUrl} />
       </header>
 
       <div className="tab-navigation">
@@ -96,11 +90,9 @@ const Responses = () => {
       </div>
 
       <div className="tab-content">
-        {activeTab === 'results' && (
+        {activeTab === 'results' ? (
           <ResultsTab formQuestions={formQuestions} responses={responses} />
-        )}
-
-        {activeTab === 'analysis' && (
+        ) : (
           <AnalysisTab formQuestions={formQuestions} responses={responses} />
         )}
       </div>
