@@ -5,24 +5,24 @@
   padding: 0;
   margin: 0;
 }
-  
+
 .header {
   display: flex;
   justify-content: space-between;
   padding: 20px;
 }
-  
+
 .logo {
   font-weight: bold;
   font-size: 24px;
 }
-  
+
 .nav-links a {
   margin: 0 10px;
   text-decoration: none;
   color: #000;
 }
-  
+
 .create-form-btn {
   background-color: #7a94ff;
   color: #fff;
@@ -30,11 +30,11 @@
   border: none;
   cursor: pointer;
 }
-  
+
 .main-content {
   text-align: center;
 }
-  
+
 .hero {
   margin: 0px auto;
   display: flex;
@@ -46,42 +46,34 @@
 }
 
 .hero img {
-  height: 700px
+  height: auto; /* Make image responsive */
+  max-width: 100%; /* Ensure it fits within its container */
 }
-  
+
 .subtext {
-  font-size: 64px;
+  font-size: 2.5rem; /* Responsive font size */
   font-weight: bold;
   margin-bottom: 4px;
   color: #1A1D20;
 }
-  
+
 .description {
   max-width: 880px;
-  font-size: 24px;
+  font-size: 1.5rem; /* Responsive font size */
   margin: 20px auto;
 }
-  
+
 .create-form-btn-large {
   background-color: #7a94ff;
   color: #fff;
   padding: 15px 30px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 1rem; /* Responsive font size */
   width: 250px;
   align-items: center;
   border-radius: 25px;
 }
 
-
-.steps {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 40px;
-  margin: 60px
-}
-  
 .step {
   display: flex;
   max-width: 1100px;
@@ -117,12 +109,12 @@
 
 .hr {
   border: none;
-  border-top: 2px solid #7a94ff;  /* Set the color and thickness */
-  margin: 20px 0;  /* Optional: Adjust the space around the line */
+  border-top: 2px solid #7a94ff; /* Set the color and thickness */
+  margin: 20px 0; /* Optional: Adjust the space around the line */
 }
 
 .typewriter {
-  font-size: 96px;
+  font-size: 3rem; /* Responsive font size */
   font-weight: bold;
   display: inline-block;
   margin-top: 48px;
@@ -131,7 +123,7 @@
 
 .blinking-cursor {
   font-weight: bold;
-  font-size: 96px;
+  font-size: 3rem; /* Responsive font size */
   margin-left: 3px;
   animation: blink 0.9s infinite;
 }
@@ -175,7 +167,7 @@
   position: absolute;
   top: 20px;
   right: 20px;
-} 
+}
 
 .scroll-box {
   height: 200px;
@@ -191,13 +183,13 @@
 }
 
 .scroll-title {
-  font-size: 24px;
+  font-size: 1.5rem; /* Responsive font size */
   font-weight: bold;
 }
 
 .scroll-content {
   margin-top: 10px;
-  font-size: 18px;
+  font-size: 1rem; /* Responsive font size */
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -208,3 +200,94 @@
   transform: translateY(0);
 }
 
+.features {
+  background-color: #f8f3ea;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.features-title {
+  font-size: 2.5rem; /* Responsive font size */
+  margin-bottom: 30px;
+  color: #1A1D20;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  background-color: transparent; /* Remove background color */
+  padding: 20px;
+  border: 2px solid #7a94ff; /* Add a purple outline */
+  border-radius: 8px;
+  box-shadow: none; /* Remove box shadow for a flatter look */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow on hover */
+}
+
+.feature-title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #1A1D20;
+}
+
+.feature-description {
+  font-size: 1em;
+  color: #555555;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1000px) {
+  .subtext {
+    font-size: 1.5rem; /* Smaller font size */
+  }
+
+  .description {
+    font-size: 1rem; /* Smaller font size */
+    padding: 0 10px; /* Add padding for better text fitting */
+  }
+
+  .steps {
+    gap: 15px; /* Decrease gap for very small screens */
+  }
+  
+  .step {
+    padding: 15px; /* Further reduce padding */
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .step-number {
+    font-size: 24px; /* Further reduce font size */
+  }
+  
+  .step-title {
+    font-size: 22px; /* Further reduce font size */
+    text-align: center;
+    max-width: 2000px;
+    margin-right: 0px;
+  }
+  
+  .step-des {
+    font-size: 18px; /* Further reduce font size */
+  }
+
+  .features-title {
+    font-size: 2rem; /* Smaller font size */
+  }
+
+  .feature-title {
+    font-size: 1.2rem; /* Smaller font size */
+  }
+
+  .hero img {
+    height: auto; /* Ensure image fits on mobile */
+  }
+}

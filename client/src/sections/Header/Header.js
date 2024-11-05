@@ -1,33 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import './Header.css';
 import LoginOverlay from './LoginOverlay';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation(); // Get the current location
   const [user, setUser] = useState(null);
   const auth = getAuth();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1000);
+  const [showLoginOverlay, setShowLoginOverlay] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const drawerRef = useRef(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user); 
-      } else {
-        setUser(null);
-      }
+      setUser(user || null);
     });
-
-    return () => unsubscribe(); 
+    return () => unsubscribe();
   }, [auth]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 1000);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleLogout = () => {
     auth.signOut();
     navigate('/login');
   };
-
-  const [showLoginOverlay, setShowLoginOverlay] = useState(false);
 
   const handleLoginClick = () => {
     setShowLoginOverlay(true);
@@ -37,33 +45,73 @@ const Header = () => {
     setShowLoginOverlay(false);
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (drawerRef.current && !drawerRef.current.contains(event.target)) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
+
+  const getLinkClassName = (path) => {
+    return location.pathname === path ? 'drawer-item active' : 'drawer-item';
+  };
+
   return (
     <header className="header">
       <nav className="navbar">
+        {isMobile && (
+          <button className="menu-icon" onClick={toggleMobileMenu}>
+            {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+          </button>
+        )}
         <div className="logo">
           <img className="w-[20px]" src="/assets/common/logo_word.png" alt="Logo" />
         </div>
-        <ul className="nav-list">
-          <li className="nav-item"><Link to="/home">Home</Link></li>
-          <li className="nav-item"><Link to="/features">Features</Link></li>
-          <li className="nav-item"><Link to="/pricing">Pricing</Link></li>
-          <li className="nav-item"><Link to="/contact">Contact Us</Link></li>
-          <li className="nav-item"><Link to="/faq">FAQ</Link></li>
-          <li className="nav-item"><Link to="/forms">Forms</Link></li>
-          <li className="nav-item"><Link to="/dashboard">Dashboard</Link></li>
-        </ul>
-
+        {!isMobile && (
+          <div className="nav-links">
+            <Link to="/home">Home</Link>
+            <Link to="/pricing">Pricing</Link>
+            <Link to="/contact">Contact Us</Link>
+            <Link to="/faq">FAQ</Link>
+            <Link to="/dashboard">Dashboard</Link>
+          </div>
+        )}
         {user ? (
           <div className="user-info">
-            <span className="user-name">Hello, {user.displayName || 'User'}</span>
+            {!isMobile && <span className="user-name">Hello, {user.displayName || 'User'}</span>}
             <button className="logout-button" onClick={handleLogout}>Logout</button>
           </div>
         ) : (
-          
-            <button className="login-button" onClick={handleLoginClick}>Login</button>
+          <button className="login-button" onClick={handleLoginClick}>Login</button>
         )}
       </nav>
-
+      <div className={`side-drawer ${isMobileMenuOpen ? 'open' : ''}`} ref={drawerRef}>
+        <div className="drawer-header">
+          <img className="drawer-logo" src="/assets/common/logo_word.png" alt="Logo" />
+        </div>
+        <ul className="drawer-list">
+          <li className={getLinkClassName('/home')}><Link to="/home" onClick={toggleMobileMenu}>Home</Link></li>
+          <li className={getLinkClassName('/pricing')}><Link to="/pricing" onClick={toggleMobileMenu}>Pricing</Link></li>
+          <li className={getLinkClassName('/contact')}><Link to="/contact" onClick={toggleMobileMenu}>Contact Us</Link></li>
+          <li className={getLinkClassName('/faq')}><Link to="/faq" onClick={toggleMobileMenu}>FAQ</Link></li>
+          <li className={getLinkClassName('/dashboard')}><Link to="/dashboard" onClick={toggleMobileMenu}>Dashboard</Link></li>
+        </ul>
+      </div>
       {showLoginOverlay && <LoginOverlay closeOverlay={closeOverlay} />}
     </header>
   );

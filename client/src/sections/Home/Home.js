@@ -9,7 +9,6 @@ const Home = () => {
   const typedText = useTypewriter(prefix, phrases);
 
   useEffect(() => {
-    // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -21,8 +20,6 @@ const Home = () => {
     }
 
     requestAnimationFrame(animate);
-
-    // Cleanup on unmount
     return () => {
       lenis.destroy();
     };
@@ -68,43 +65,31 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Scrollable Reveal Boxes */}
-        {[...Array(5)].map((_, index) => (
-          <ScrollBox
-            key={index}
-            title={`Discover More ${index + 1}`}
-            content={`This is additional information that reveals as you scroll through box ${index + 1}. Explore insights, data trends, and much more to make informed decisions with ease.`}
-          />
-        ))}
+        {/* Features Section */}
+        <section className="features">
+          <h2 className="features-title">Key Features</h2>
+          <div className="features-grid">
+            <div className="feature-card">
+              <h3 className="feature-title">Prompt Further Engagement</h3>
+              <p className="feature-description">
+                Our intelligent system automatically prompts users with follow-up questions based on their answers, ensuring deeper engagement and richer data collection.
+              </p>
+            </div>
+            <div className="feature-card">
+              <h3 className="feature-title">In-Depth Dashboard Analysis</h3>
+              <p className="feature-description">
+                Gain actionable insights through our advanced dashboard analytics, designed to transform raw data into meaningful information that drives decisions.
+              </p>
+            </div>
+            <div className="feature-card">
+              <h3 className="feature-title">AI-Generated Questions</h3>
+              <p className="feature-description">
+                Tailor your surveys with AI-generated questions that align with the purpose of your form, making data collection effortless and precise.
+              </p>
+            </div>
+          </div>
+        </section>
       </main>
-    </div>
-  );
-};
-
-// ScrollBox Component
-const ScrollBox = ({ title, content }) => {
-  const [isFullyScrolled, setIsFullyScrolled] = useState(false);
-  const boxRef = useRef(null);
-
-  const handleScroll = () => {
-    if (boxRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = boxRef.current;
-      if (scrollTop + clientHeight >= scrollHeight - 10) {
-        setIsFullyScrolled(true); // Fully reveal content when scrolled to the bottom
-      } else {
-        setIsFullyScrolled(false); // Hide content if not fully scrolled
-      }
-    }
-  };
-
-  return (
-    <div
-      ref={boxRef}
-      onScroll={handleScroll}
-      className={`scroll-box ${isFullyScrolled ? 'fully-scrolled' : ''}`}
-    >
-      <h2 className="scroll-title">{title}</h2>
-      <p className={`scroll-content ${isFullyScrolled ? 'revealed' : ''}`}>{content}</p>
     </div>
   );
 };

@@ -4,38 +4,38 @@ import './Pricing.css';
 const Pricing = () => {
   return (
     <div className="pricing">
-      <h1>Pricing Plans</h1>
-      <p>Choose the plan that suits your needs best.</p>
+      <h1>Flexible Pricing Plans</h1>
+      <p>Choose the plan that best fits your needs and scale as you grow.</p>
       <div className="pricing-plans">
         <div className="plan">
-          <h2>Basic Plan</h2>
-          <p>$10/month</p>
+          <h2>Starter Pack</h2>
+          <p>5 Credits - $5</p>
           <ul>
-            <li>Access to basic features</li>
-            <li>10 forms per month</li>
+            <li>5 additional forms</li>
+            <li>Up to 20 responses per form</li>
             <li>Email support</li>
           </ul>
-          <button className="btn">Sign Up</button>
+          <button className="btn">Purchase</button>
         </div>
         <div className="plan">
-          <h2>Pro Plan</h2>
-          <p>$30/month</p>
+          <h2>Standard Pack</h2>
+          <p>10 Credits - $8</p>
           <ul>
-            <li>Access to all features</li>
-            <li>Unlimited forms</li>
-            <li>Priority email support</li>
+            <li>10 additional forms</li>
+            <li>Up to 20 responses per form</li>
+            <li>Email support</li>
           </ul>
-          <button className="btn">Sign Up</button>
+          <button className="btn">Purchase</button>
         </div>
         <div className="plan">
-          <h2>Enterprise Plan</h2>
-          <p>Contact Us</p>
+          <h2>Advanced Pack</h2>
+          <p>15 Credits - $10</p>
           <ul>
-            <li>Custom solutions</li>
-            <li>Dedicated account manager</li>
-            <li>Phone and email support</li>
+            <li>15 additional forms</li>
+            <li>Up to 20 responses per form</li>
+            <li>Email support</li>
           </ul>
-          <button className="btn">Contact Us</button>
+          <button className="btn">Purchase</button>
         </div>
       </div>
     </div>
