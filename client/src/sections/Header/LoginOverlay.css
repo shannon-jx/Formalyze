@@ -1,39 +1,64 @@
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .overlay-content {
-    background-color: #f8f3ea;
-    padding: 20px;
-    border-radius: 8px;
-    width: 300px;
-    text-align: center;
-  }
-  
-  .google-login-button {
-    background-color: #4285F4;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    width: 100%;
-    border-radius: 5px;
-  }
-  
-  .close-button {
-    margin-top: 10px;
-    color: #1A1D20;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    background-color: transparent;
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7); /* Darker background for more contrast */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease; /* Smooth fade-in effect */
+  z-index: 1000; /* Ensure it appears above other elements */
+}
+
+.overlay-content {
+  background-color: #fefefe; /* Light background for the content */
+  padding: 30px; /* More padding for a spacious feel */
+  border-radius: 12px; /* Rounded corners for a softer look */
+  width: 350px; /* Increased width for a better layout */
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+h2 {
+  color: #333; /* Darker text for better readability */
+  margin-bottom: 10px; /* Space between title and description */
+  font-family: 'Inter', sans-serif; /* Font family */
+}
+
+p {
+  color: #666; /* Slightly lighter color for description */
+  margin-bottom: 20px; /* Space below paragraph */
+}
+
+.google-login-button {
+  background-color: #4285F4; /* Google blue */
+  color: white;
+  border: none;
+  padding: 12px; /* Slightly larger padding */
+  cursor: pointer;
+  width: 100%;
+  border-radius: 5px;
+  font-size: 16px; /* Increased font size */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.google-login-button:hover {
+  background-color: #357AE8; /* Darker blue on hover */
+}
+
+.close-button {
+  margin-top: 10px;
+  color: #1A1D20;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 14px; /* Slightly larger font size */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.close-button:hover {
+  color: #A00; /* Change color on hover for visibility */
+}

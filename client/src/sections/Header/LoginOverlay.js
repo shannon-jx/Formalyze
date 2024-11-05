@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './LoginOverlay.css';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
@@ -6,7 +6,6 @@ import { db, auth } from '../firebase';
 import 'firebaseui/dist/firebaseui.css';
 
 const LoginOverlay = ({ closeOverlay }) => {
-
   const ProviderSignIn = async () => {
     const provider = new GoogleAuthProvider();
 
@@ -31,18 +30,8 @@ const LoginOverlay = ({ closeOverlay }) => {
   return (
     <div className="overlay">
       <div className="overlay-content">
-        <h2>Login</h2>
-        {/* <form>
-          <div>
-            <label htmlFor="email">Email:</label>
-            <input type="email" id="email" required />
-          </div>
-          <div>
-            <label htmlFor="password">Password:</label>
-            <input type="password" id="password" required />
-          </div>
-          <button type="submit">Submit</button>
-        </form> */}
+        <h2>Welcome Back!</h2>
+        <p>Please sign in to continue.</p>
         <button className="google-login-button" onClick={ProviderSignIn}>
           Sign in with Google
         </button>
