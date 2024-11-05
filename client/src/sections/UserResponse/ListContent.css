@@ -41,13 +41,23 @@ textarea {
     width: 100%;
     padding: 8px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 8px;
+    font-size: 16px;
+    min-height: 100px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    max-width: 100%;
+    resize: vertical;
 }
 
 .question-card {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
+    background-color: #ffffff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 16px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .question-content {
@@ -92,11 +102,76 @@ textarea {
 
 @media (max-width: 480px) {
     .form-container {
-        padding: 10px;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .form-title {
-        font-size: 20px;
+        margin-bottom: 24px;
+    }
+
+    .question-card {
+        padding: 12px;
+        order: 2;
+        width: 100%;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .navigation-buttons {
+        order: 1;
+        position: sticky;
+        top: 0;
+        background-color: #f9f9f9;
+        padding: 12px 0;
+        margin: 0 0 16px 0;
+        z-index: 100;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .option-container label {
+        font-size: 16px;
+        line-height: 1.4;
+        padding: 4px 0;
+    }
+
+    /* Improve touch targets */
+    input[type="radio"],
+    input[type="checkbox"] {
+        transform: scale(1.2);
+    }
+
+    .nav-button,
+    .submit-button {
+        padding: 14px;
+        font-size: 16px;
+    }
+
+    textarea {
+        width: 100%;
+        max-width: 100%;
+        font-size: 16px;
+    }
+
+    .question-content {
+        width: 100%;
+        box-sizing: border-box;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+    }
+}
+
+/* Small phone screens */
+@media (max-width: 375px) {
+    .form-container {
+        padding: 8px;
+    }
+
+    .navigation-buttons {
+        padding: 8px 0;
     }
 
     .question-text {
