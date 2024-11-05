@@ -1,72 +1,92 @@
 .form-container {
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 20px;
+    padding: 16px;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .form-title {
-    font-size: 24px;
+    font-size: clamp(20px, 5vw, 24px);
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     text-align: center;
+    word-wrap: break-word;
 }
 
 .question-container {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 .question-text {
-    font-size: 18px;
+    font-size: clamp(16px, 4vw, 18px);
     color: #444;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    word-wrap: break-word;
 }
 
 .option-container {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+    padding: 8px 0;
 }
 
 input[type="radio"],
 input[type="checkbox"] {
-    margin-right: 8px;
+    margin-right: 12px;
+    min-width: 20px;
+    min-height: 20px;
 }
 
 input[type="range"] {
     width: 100%;
+    margin: 16px 0;
 }
 
 textarea {
     width: 100%;
-    padding: 8px;
+    padding: 12px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 8px;
+    font-size: 16px;
+    min-height: 100px;
+    margin-bottom: 16px;
 }
 
 .question-card {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
+    background-color: #ffffff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 16px;
 }
 
 .question-content {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 .navigation-buttons {
     display: flex;
     justify-content: space-between;
+    gap: 12px;
     margin-top: 20px;
+    padding: 0 8px;
 }
 
 .nav-button {
-    padding: 10px 20px;
+    flex: 1;
+    padding: 12px;
     background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 16px;
+    min-height: 48px;
+    touch-action: manipulation;
 }
 
 .nav-button:disabled {
@@ -75,31 +95,109 @@ textarea {
 }
 
 .submit-button {
-    display: block;
+    width: 100%;
     margin: 20px auto;
-    padding: 10px 20px;
+    padding: 16px;
     background-color: #28a745;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 16px;
+    min-height: 48px;
+    touch-action: manipulation;
 }
 
 .no-questions {
     text-align: center;
     color: #666;
+    padding: 20px;
+    font-size: 16px;
 }
 
-@media (max-width: 480px) {
+/* Mobile-specific styles */
+@media (max-width: 768px) {
     .form-container {
-        padding: 10px;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
     }
 
     .form-title {
-        font-size: 20px;
+        margin-bottom: 24px;
+    }
+
+    .question-card {
+        padding: 12px;
+        order: 2;
+    }
+
+    .navigation-buttons {
+        order: 1;
+        position: sticky;
+        top: 0;
+        background-color: #f9f9f9;
+        padding: 12px 0;
+        margin: 0 0 16px 0;
+        z-index: 100;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .option-container label {
+        font-size: 16px;
+        line-height: 1.4;
+        padding: 4px 0;
+    }
+
+    /* Improve touch targets */
+    input[type="radio"],
+    input[type="checkbox"] {
+        transform: scale(1.2);
+    }
+
+    .nav-button,
+    .submit-button {
+        padding: 14px;
+        font-size: 16px;
+    }
+}
+
+/* Small phone screens */
+@media (max-width: 375px) {
+    .form-container {
+        padding: 8px;
+    }
+
+    .navigation-buttons {
+        padding: 8px 0;
     }
 
     .question-text {
         font-size: 16px;
+    }
+
+    .nav-button,
+    .submit-button {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+
+/* Handle landscape orientation */
+@media (orientation: landscape) and (max-height: 600px) {
+    .form-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .question-card {
+        margin-bottom: 12px;
+    }
+
+    .navigation-buttons {
+        position: sticky;
+        bottom: 0;
+        background-color: #f9f9f9;
+        padding: 8px 0;
     }
 }
