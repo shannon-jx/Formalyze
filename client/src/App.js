@@ -19,7 +19,7 @@ import Dashboard from './sections/Dashboard/Dashboard';
 // Create a wrapper component to handle header visibility
 const AppContent = () => {
   const location = useLocation();
-  const isUserResponsePage = location.pathname.includes('/User-Response');
+  const isUserResponsePage = location.pathname.includes('/user-response');
 
  
   return (
