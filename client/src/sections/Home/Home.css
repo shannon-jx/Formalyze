@@ -74,6 +74,15 @@
   border-radius: 25px;
 }
 
+.steps {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  margin: 64px;
+}
+
 .step {
   display: flex;
   max-width: 1100px;
@@ -114,7 +123,7 @@
 }
 
 .typewriter {
-  font-size: 3rem; 
+  font-size: 96px; 
   font-weight: bold;
   display: inline-block;
   margin-top: 48px;

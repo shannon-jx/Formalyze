@@ -14,7 +14,7 @@
 }
 
 .logo img {
-    height: 20px;
+    height: 24px;
 }
 
 .menu-icon {
@@ -36,7 +36,7 @@
 .nav-links a {
     color: #1A1D20;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 18px;
     transition: color 0.3s ease;
     font-family: Inter;
 }
@@ -54,7 +54,7 @@
 .user-name {
     color: #1A1D20;
     margin-right: 10px;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .login-button, .logout-button {
@@ -62,7 +62,7 @@
     color: #fff;
     border: 1px solid #1A1D20;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
     transition: all 0.3s ease;
     border-radius: 25px;
