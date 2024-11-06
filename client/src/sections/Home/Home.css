@@ -123,7 +123,7 @@
 }
 
 .typewriter {
-  font-size: 96px; 
+  font-size: 6vw; 
   font-weight: bold;
   display: inline-block;
   margin-top: 48px;
@@ -253,6 +253,10 @@
 }
 
 @media (max-width: 768px) {
+  .typewriter {
+    font-size: 50px;
+  }
+
   .subtext {
     font-size: 1.5rem;
   }

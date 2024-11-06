@@ -14,7 +14,9 @@
 }
 
 .logo img {
-    height: 24px;
+    height: auto; 
+    width: 20vw;
+    max-width: 150px; 
 }
 
 .menu-icon {
@@ -62,7 +64,7 @@
     color: #fff;
     border: 1px solid #1A1D20;
     padding: 10px 20px;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
     border-radius: 25px;
@@ -158,4 +160,18 @@
 
 .drawer-item a:hover {
     color: #7a94ff;
+}
+
+@media (max-width: 768px) {
+    .logo img {
+        width: 30vw; 
+        max-width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo img {
+        width: 40vw;
+        max-width: 100px;
+    }
 }
