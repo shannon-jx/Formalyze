@@ -1,0 +1,64 @@
+.form-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .form-list li {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+  }
+  
+  .survey-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+  }
+  
+  .survey-actions button {
+    padding: 5px 10px;
+    background-color: #7a94ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .survey-actions button:hover {
+    background-color: #5a74d4;
+  }
+  
+  .qr-container {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .qr-code {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 5px;
+  }
+  
+  .copy-link-button {
+    background-color: #7a94ff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .copy-link-button:hover {
+    background-color: #5a74d4;
+  }
+  

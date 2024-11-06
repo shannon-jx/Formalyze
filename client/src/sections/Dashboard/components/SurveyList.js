@@ -1,14 +1,14 @@
-// src/sections/Dashboard/components/SurveyList.js
 import React, { useState, useEffect } from 'react';
 import { collection, query, getDocs, doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../firebase'; // Adjust the path based on actual location
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-// import './SurveyList.css'; // Ensure correct path
+import QRCode from 'qrcode';
+import './SurveyList.css'; // Ensure correct path
 
-function SurveyListComponent({ selectedFormId, setSelectedFormId, userId }) {
+function SurveysList({ selectedFormId, setSelectedFormId, userId }) {
   const [surveys, setSurveys] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
+  const [shareQRCode, setShareQRCode] = useState({}); // Track QR codes visibility
 
   useEffect(() => {
     const fetchSurveys = async () => {
@@ -16,16 +16,8 @@ function SurveyListComponent({ selectedFormId, setSelectedFormId, userId }) {
       try {
         const q = query(collection(db, 'users', userId, 'forms'));
         const querySnapshot = await getDocs(q);
-        const surveysWithResponses = await Promise.all(
-          querySnapshot.docs.map(async (formDoc) => {
-            const formData = { id: formDoc.id, ...formDoc.data() };
-            const responsesQuery = query(collection(db, 'users', userId, 'forms', formDoc.id, 'responses'));
-            const responsesSnapshot = await getDocs(responsesQuery);
-            const responses = responsesSnapshot.docs.map(doc => doc.data());
-            return { ...formData, responses: responses || [] }; 
-          })
-        );
-        setSurveys(surveysWithResponses);
+        const surveysData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setSurveys(surveysData);
         setLoading(false);
       } catch (err) {
         console.error("Error fetching surveys: ", err);
@@ -52,6 +44,28 @@ function SurveyListComponent({ selectedFormId, setSelectedFormId, userId }) {
     }
   };
 
+  const handleShareToggle = async (id) => {
+    if (shareQRCode[id]) {
+      // Hide QR code if already visible
+      setShareQRCode((prev) => ({ ...prev, [id]: null }));
+    } else {
+      // Generate and show QR code for the form response entry page
+      const url = `http://localhost:3000/user-response/${userId}/${id}`;
+      try {
+        const generatedQrCode = await QRCode.toDataURL(url);
+        setShareQRCode((prev) => ({ ...prev, [id]: generatedQrCode }));
+      } catch (error) {
+        console.error("QR Code generation failed", error);
+      }
+    }
+  };
+
+  const copyLink = (id) => {
+    const url = `http://localhost:3000/user-response/${userId}/${id}`;
+    navigator.clipboard.writeText(url);
+    alert("Link copied to clipboard!");
+  };
+
   if (loading) {
     return <div className="loading">Loading forms...</div>;
   }
@@ -71,10 +85,19 @@ function SurveyListComponent({ selectedFormId, setSelectedFormId, userId }) {
             className={selectedFormId === survey.id ? 'active' : ''}
             onClick={() => setSelectedFormId(survey.id)}
           >
-            {survey.title || 'Untitled Form'}
+            <span>{survey.title || 'Untitled Form'}</span>
             <div className="survey-actions">
               <button onClick={(e) => { e.stopPropagation(); handleDelete(survey.id); }}>Delete</button>
+              <button onClick={(e) => { e.stopPropagation(); handleShareToggle(survey.id); }}>Share</button>
             </div>
+            {shareQRCode[survey.id] && (
+              <div className="qr-container">
+                <img src={shareQRCode[survey.id]} alt="QR Code" className="qr-code" />
+                <button onClick={(e) => { e.stopPropagation(); copyLink(survey.id); }} className="copy-link-button">
+                  Copy Link
+                </button>
+              </div>
+            )}
           </li>
         ))
       )}
@@ -82,4 +105,4 @@ function SurveyListComponent({ selectedFormId, setSelectedFormId, userId }) {
   );
 }
 
-export default SurveyListComponent;
+export default SurveysList;
