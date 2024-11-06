@@ -34,8 +34,7 @@ const Header = () => {
 
   const handleLogout = () => {
     auth.signOut();
-    navigate('/home');
-    alert('You have successfully signed out!');
+    navigate('/login');
   };
 
   const handleLoginClick = () => {
