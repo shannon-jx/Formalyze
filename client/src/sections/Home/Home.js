@@ -34,7 +34,16 @@ const Home = () => {
             <span>{typedText}</span>
             <span className="blinking-cursor">|</span>
           </p>
-          <img className="w-[20px]" src="/assets/common/iPhone14.svg" alt="Mockup" />
+          <div className="iphone-row">
+            <div className="iphone-item">
+              <p>From this:</p>
+              <img className="iphone-img" src="/assets/common/phone1.png" alt="Mockup" />
+            </div>
+            <div className="iphone-item">
+              <p>To this:</p>
+              <img className="iphone-img" src="/assets/common/phone2.png" alt="Mockup" />
+            </div>
+          </div>
           <div className="cta">
             <p className="subtext">Welcome to the future of surveying</p>
             <p className="description">

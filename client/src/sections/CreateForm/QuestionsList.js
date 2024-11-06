@@ -211,8 +211,10 @@ import { db } from '../firebase';
 import { getAuth } from 'firebase/auth';
 import './CreateForm.css';
 import { FaTrash } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const QuestionsList = ({ questions, setQuestions, title }) => {
+  const navigate = useNavigate();
   const [saving, setSaving] = useState(false);
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(null);
 
@@ -283,8 +285,6 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
     updatedQuestions = updatedQuestions.map((question, i) => ({ ...question, id: i + 1 }));
     setQuestions(updatedQuestions);
   };
-
-
 
   const renderOptions = (question) => {
     switch (question.type) {
@@ -405,6 +405,12 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
       });
 
       alert('Form successfully created!');
+      navigate('/dashboard');
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
     } catch (error) {
       console.error('Error creating form:', error);
       alert('Failed to create form.');
