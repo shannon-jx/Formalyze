@@ -4,6 +4,7 @@ import axios from 'axios';
 import './ListContent.css';
 import {db} from '../firebase'; 
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const UserResponse = () => {
     const { userId, formId } = useParams();
@@ -11,6 +12,7 @@ const UserResponse = () => {
     const [formResponses, setFormResponses] = useState({});
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [isCurrentQuestionAnswered, setIsCurrentQuestionAnswered] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUserResponse = async () => {    
@@ -204,6 +206,7 @@ const UserResponse = () => {
             
             setFormResponses({});
             alert('Form submitted successfully!');
+            navigate('/home');
         } catch (error) {
             console.error('Error submitting form:', error);
             alert('An error occurred while submitting the form. Please check the console for more details.');
@@ -227,7 +230,6 @@ const UserResponse = () => {
                         
                         <div className="navigation-buttons">
                             <button 
-                                type="button" 
                                 className="nav-button prev-button" 
                                 onClick={() => setCurrentQuestionIndex(prev => Math.max(0, prev - 1))}
                                 disabled={currentQuestionIndex === 0}
@@ -236,7 +238,6 @@ const UserResponse = () => {
                             </button>
                             
                             <button 
-                                type="button" 
                                 className="nav-button next-button" 
                                 onClick={handleNextQuestion}
                                 disabled={currentQuestionIndex === data.questions.length - 1 || !isCurrentQuestionAnswered}
