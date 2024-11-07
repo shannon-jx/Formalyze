@@ -6,7 +6,7 @@ import AnalyzeView from './AnalyzeView';
 import { useNavigate } from 'react-router-dom';
 import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase';
-// import './MainContent.css'; // Create and style as needed
+import './MainContent.css'; // Create and style as needed
 
 function MainContent({ currentView, selectedFormId, userId }) {
   const navigate = useNavigate();

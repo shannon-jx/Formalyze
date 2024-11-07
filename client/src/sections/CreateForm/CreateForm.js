@@ -51,7 +51,7 @@ const CreateForm = () => {
         ) : (
           <h2 className="title">{title}</h2>
         )}
-        <button onClick={() => setIsEditing(!isEditing)} className="edit-button">
+        <button className="edit-button" onClick={() => setIsEditing(!isEditing)} className="edit-button">
           {isEditing ? 'Save' : 'Edit'}
         </button>
       </div>

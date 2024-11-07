@@ -20,7 +20,7 @@ function Login() {
         email: user.email,
       });
       
-      navigate('/create-form');
+      navigate('/dashboard');
       console.log("User signed in and saved:", user);
     } catch (error) {
       console.error("Error during sign-in:", error);

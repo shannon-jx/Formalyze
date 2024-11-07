@@ -2,8 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import useTypewriter from './useTypewriter';
 import './Home.css';
 import Lenis from '@studio-freight/lenis';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const navigate = useNavigate();
   const phrases = ["Surveys", "Data", "Analysis"];
   const prefix = "Better ";
   const typedText = useTypewriter(prefix, phrases);
@@ -24,6 +26,10 @@ const Home = () => {
       lenis.destroy();
     };
   }, []);
+
+  const handleCreateFormClick = () => {
+    navigate('/create-form');
+  };
 
   return (
     <div className="app-container">
@@ -47,9 +53,9 @@ const Home = () => {
           <div className="cta">
             <p className="subtext">Welcome to the future of surveying</p>
             <p className="description">
-              Transform the way you collect data. Our AI generates questions tailored to your form's purpose, asks further questions, and provides deep insights with built-in response and data analysis.
+              Generate tailored questions, follow-up prompts, and deeper insights with our AI-driven form analysis.
             </p>
-            <button className="create-form-btn-large">Create Your First Form</button>
+            <button className="create-form-btn-large" onClick={handleCreateFormClick}>Create Your First Form</button>
           </div>
         </section>
 

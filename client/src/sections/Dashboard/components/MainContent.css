@@ -1,0 +1,100 @@
+/* src/sections/Dashboard/components/MainContent.css */
+
+.main-content {
+    flex: 1;
+    padding: 30px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow-y: auto;
+}
+
+.main-content-loading,
+.main-content-error {
+    text-align: center;
+    font-size: 20px;
+    color: #1A1D20;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f8f3ea;
+    border-radius: 8px;
+}
+
+.main-content-loading {
+    color: #7a94ff;
+}
+
+.main-content-error {
+    color: #ff6b6b;
+}
+
+.select-form-message {
+    text-align: center;
+    font-size: 18px;
+    color: #1A1D20;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f8f3ea;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+}
+
+/* EditView, ResponsesView, AnalyzeView container styling */
+.view-container {
+    margin-top: 20px;
+}
+
+.view-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #1A1D20;
+}
+
+.view-content {
+    background-color: #f8f3ea;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Button styles */
+.action-button {
+    padding: 10px 20px;
+    background-color: #7a94ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.action-button:hover {
+    background-color: #5a78e4;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 20px;
+    }
+
+    .view-header {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .action-button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        margin: 10px 0;
+    }
+
+    .view-container {
+        padding: 16px;
+    }
+}

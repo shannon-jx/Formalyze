@@ -5,8 +5,10 @@ import MainContent from './components/MainContent';
 import './Dashboard.css';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Lenis from '@studio-freight/lenis';
+import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
+  const navigate = useNavigate();
   const [selectedFormId, setSelectedFormId] = useState(null);
   const [currentView, setCurrentView] = useState('Edit');
   const [userId, setUserId] = useState(null);
@@ -18,6 +20,8 @@ function Dashboard() {
         setUserId(currentUser.uid);
       } else {
         setUserId(null);
+        alert('You must be logged in to access the dashboard.');
+        navigate('/home');
         // Optionally, redirect to login or display a message
       }
     });

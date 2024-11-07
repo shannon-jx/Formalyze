@@ -3,9 +3,11 @@ import './LoginOverlay.css';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
 import { db, auth } from '../firebase';
+import { useNavigate } from 'react-router-dom';
 import 'firebaseui/dist/firebaseui.css';
 
 const LoginOverlay = ({ closeOverlay }) => {
+  const navigate = useNavigate();
   const ProviderSignIn = async () => {
     const provider = new GoogleAuthProvider();
 
@@ -22,6 +24,7 @@ const LoginOverlay = ({ closeOverlay }) => {
 
       console.log("User signed in and saved:", user);
       closeOverlay();  // Close overlay after successful login
+      navigate('/create-form');
     } catch (error) {
       console.error("Error during sign-in:", error);
     }
