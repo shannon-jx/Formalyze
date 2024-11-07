@@ -226,3 +226,167 @@ li.question-item {
     margin-bottom: 8px;
   }
   
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .response-box {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .question-item {
+        padding: 15px;
+    }
+
+    /* Reorganize input and select container for mobile */
+    .input-select-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    /* Question input takes full width and appears above */
+    .question-input {
+        width: 100%;
+        order: 1;
+        font-size: 14px;
+        padding: 8px;
+        margin-bottom: 8px;
+    }
+
+    /* Container for type dropdown and delete icon */
+    .type-and-delete {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        order: 2;
+        width: 100%;
+    }
+
+    /* Create a new container for type dropdown and delete icon */
+    .type-delete-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    /* Type dropdown adjustments */
+    .type-dropdown {
+        width: auto;
+        font-size: 14px;
+    }
+
+    /* Delete icon adjustments */
+    .delete-icon {
+        font-size: 16px;
+        margin-left: auto; /* Push to right of type dropdown */
+    }
+
+    /* Prompt container adjustments for mobile */
+    .prompt-container {
+        width: 100%;
+        padding: 8px;
+        background-color: #ffffff;
+        border-radius: 6px;
+        margin-top: 8px;
+    }
+
+    .prompt-label {
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .question-checkbox {
+        margin: 0;
+    }
+}
+
+/* Even smaller screens */
+@media (max-width: 480px) {
+    .question-item {
+        padding: 12px;
+    }
+
+    .question-input {
+        font-size: 13px;
+    }
+
+    .type-dropdown {
+        font-size: 13px;
+    }
+
+    .option-input {
+        font-size: 13px;
+    }
+
+    .type-and-delete {
+        flex-wrap: nowrap; /* Prevent wrapping to keep items in line */
+        gap: 8px;
+    }
+
+    .prompt-label {
+        font-size: 12px;
+    }
+}
+
+/* Desktop/Laptop prompt container styling */
+.prompt-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    background-color: #ffffff;
+    border-radius: 6px;
+}
+
+.prompt-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+.question-checkbox {
+    margin: 0;
+    order: -1; /* This ensures the checkbox appears before the text */
+}
+
+/* Add or update styles for open-ended question input */
+.open-ended-input {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 10px;
+    background-color: #f9f9f9;
+}
+
+.open-ended-input:focus {
+    border-color: #6A94FF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(106, 148, 255, 0.2);
+    background-color: #fff;
+}
+
+.open-ended-input::placeholder {
+    color: #888;
+}
+
+/* Mobile adjustments for open-ended input */
+@media (max-width: 768px) {
+    .open-ended-input {
+        font-size: 16px; /* Better readability on mobile */
+        padding: 10px;
+        min-height: 80px;
+    }
+}
