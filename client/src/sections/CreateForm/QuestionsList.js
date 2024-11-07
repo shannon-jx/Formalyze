@@ -206,7 +206,7 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
       });
 
       alert('Form successfully created!');
-      navigate('/dashboard');
+      navigate('/home');
       window.scrollTo({
         top: 0,
         left: 0,

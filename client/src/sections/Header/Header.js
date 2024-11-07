@@ -49,6 +49,11 @@ const Header = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const handleDashboardClick = () => {
+    alert('You may test this feature at our booth! Fill in this waitlist if you would like to be notified to try this feature for free once this feature is available for public use.');
+    navigate('/user-response/Yd044Ip2Pufoot7rhGNYE449rOU2/hhNPHzdmLmC9QlFfi5BS');
+  };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (drawerRef.current && !drawerRef.current.contains(event.target)) {
@@ -88,7 +93,7 @@ const Header = () => {
             <Link className={location.pathname === '/pricing' ? 'active' : ''} to="/pricing">Pricing</Link>
             <Link className={location.pathname === '/contact' ? 'active' : ''} to="/contact">Contact Us</Link>
             <Link className={location.pathname === '/faq' ? 'active' : ''} to="/faq">FAQ</Link>
-            <Link className={location.pathname === '/dashboard' ? 'active' : ''} to="/dashboard">Dashboard</Link>
+            <Link onClick={handleDashboardClick} className={location.pathname === '/dashboard' ? 'active' : ''} to="/user-response/Yd044Ip2Pufoot7rhGNYE449rOU2/hhNPHzdmLmC9QlFfi5BS">Dashboard</Link>
           </div>
         )}
         {user ? (
@@ -109,7 +114,17 @@ const Header = () => {
           <li className={getLinkClassName('/pricing')}><Link to="/pricing" onClick={toggleMobileMenu}>Pricing</Link></li>
           <li className={getLinkClassName('/contact')}><Link to="/contact" onClick={toggleMobileMenu}>Contact Us</Link></li>
           <li className={getLinkClassName('/faq')}><Link to="/faq" onClick={toggleMobileMenu}>FAQ</Link></li>
-          <li className={getLinkClassName('/dashboard')}><Link to="/dashboard" onClick={toggleMobileMenu}>Dashboard</Link></li>
+          <li className={getLinkClassName('/dashboard')}>
+            <Link
+              to="/user-response/Yd044Ip2Pufoot7rhGNYE449rOU2/hhNPHzdmLmC9QlFfi5BS"
+              onClick={(e) => {
+                handleDashboardClick(e); 
+                toggleMobileMenu();      
+              }}
+            >
+              Dashboard
+            </Link>
+          </li>
         </ul>
       </div>
       {showLoginOverlay && <LoginOverlay closeOverlay={closeOverlay} />}
