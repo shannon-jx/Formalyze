@@ -7,7 +7,8 @@ const PORT = process.env.PORT || 5000;
 const groqRoutes = require('./routes/groq');
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    // origin: 'http://localhost:3000',
+    origin: 'https://formalyze-frontend.vercel.app',
 }));
 
 app.use(express.json());
