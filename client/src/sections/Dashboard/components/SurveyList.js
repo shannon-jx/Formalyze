@@ -61,7 +61,7 @@ function SurveysList({ selectedFormId, setSelectedFormId, userId }) {
   };
 
   const copyLink = (id) => {
-    const url = `http://localhost:3000/user-response/${userId}/${id}`;
+    const url = `https://formalyze-frontend.vercel.app/user-response/${userId}/${id}`;
     navigator.clipboard.writeText(url);
     alert("Link copied to clipboard!");
   };
