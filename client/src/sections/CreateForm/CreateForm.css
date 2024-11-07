@@ -137,7 +137,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  margin-top: 10px;
 }
 
 .input-select-container {
@@ -185,12 +187,6 @@
   margin-bottom: 15px;
 }
 
-.add-question-button {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-
 .bottom-buttons {
     font: 16px;
     display: flex;
@@ -210,7 +206,6 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-weight: bold;
 }
 
 .edit-button:hover {
@@ -220,3 +215,13 @@
 /* * {
     background-color: #f8f3ea;
 } */
+
+@media (max-width: 768px) {
+    .question-header {
+        margin-top: 2px;
+    }
+
+    .type-dropdown {
+        margin-left: 0px;
+    }
+}

@@ -252,27 +252,27 @@ const QuestionsList = ({ questions, setQuestions, title }) => {
                       onClick={() => deleteQuestion(questionIndex)}
                     />
                   </div>
-                  {question.type === 'open-ended' && (
-                    <div className="prompt-container">
-                      <label className="prompt-label">
-                        <input
-                          type="checkbox"
-                          checked={question.requiresPrompt || false}
-                          onChange={() => {
-                            const updatedQuestions = questions.map((q, i) =>
-                              i === questionIndex ? { ...q, requiresPrompt: !q.requiresPrompt } : q
-                            );
-                            setQuestions(updatedQuestions);
-                          }}
-                          className="question-checkbox"
-                        />
-                        Prompt
-                      </label>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
+            {question.type === 'open-ended' && (
+              <div className="prompt-container">
+                <label className="prompt-label">
+                  <input
+                    type="checkbox"
+                    checked={question.requiresPrompt || false}
+                    onChange={() => {
+                      const updatedQuestions = questions.map((q, i) =>
+                        i === questionIndex ? { ...q, requiresPrompt: !q.requiresPrompt } : q
+                      );
+                      setQuestions(updatedQuestions);
+                    }}
+                    className="question-checkbox"
+                  />
+                  Prompt
+                </label>
+              </div>
+            )}
             {renderInputField(question, questionIndex)}
           </li>
         ))}
