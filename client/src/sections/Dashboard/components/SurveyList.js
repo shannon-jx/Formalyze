@@ -50,7 +50,7 @@ function SurveysList({ selectedFormId, setSelectedFormId, userId }) {
       setShareQRCode((prev) => ({ ...prev, [id]: null }));
     } else {
       // Generate and show QR code for the form response entry page
-      const url = `http://localhost:3000/user-response/${userId}/${id}`;
+      const url = `https://formalyze-frontend.vercel.app/user-response/${userId}/${id}`;
       try {
         const generatedQrCode = await QRCode.toDataURL(url);
         setShareQRCode((prev) => ({ ...prev, [id]: generatedQrCode }));
