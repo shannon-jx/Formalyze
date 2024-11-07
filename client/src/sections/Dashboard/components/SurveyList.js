@@ -66,6 +66,15 @@ function SurveysList({ selectedFormId, setSelectedFormId, userId }) {
     alert("Link copied to clipboard!");
   };
 
+  const handleSurveyClick = (id) => {
+    setSelectedFormId(id);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  };
+
   if (loading) {
     return <div className="loading">Loading forms...</div>;
   }
@@ -83,7 +92,7 @@ function SurveysList({ selectedFormId, setSelectedFormId, userId }) {
           <li
             key={survey.id}
             className={selectedFormId === survey.id ? 'active' : ''}
-            onClick={() => setSelectedFormId(survey.id)}
+            onClick={() => handleSurveyClick(survey.id)}
           >
             <span>{survey.title || 'Untitled Form'}</span>
             <div className="survey-actions">
