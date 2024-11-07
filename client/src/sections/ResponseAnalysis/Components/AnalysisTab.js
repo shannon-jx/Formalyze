@@ -16,7 +16,7 @@ const AnalysisTab = ({ responses, formQuestions }) => {
 
       setLoading(true);
       try {
-        const response = await axios.post('/api/analyze-sentiment', { responses, formQuestions });
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/analyze-sentiment`, { responses, formQuestions });
         console.log('Response: ', JSON.stringify(response.data, null, 2));
         setAnalysisResult(response.data);
       } catch (error) {

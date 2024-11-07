@@ -15,7 +15,7 @@ const CreateForm = () => {
     setQuestions([]);
 
     try {
-      const res = await axios.post('/api/generate-questions', { message });
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/generate-questions`, { message });
       console.log(res);
       setQuestions(res.data.message.questions || []);
     } catch (err) {
@@ -26,7 +26,7 @@ const CreateForm = () => {
     }
 
     try {
-      const res = await axios.post('/api/generate-questions-title', { message });
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/generate-questions-title`, { message });
       console.log(res);
       setTitle(res.data.title);
     } catch (err) {

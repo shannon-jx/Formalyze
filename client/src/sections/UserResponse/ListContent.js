@@ -55,7 +55,7 @@ const UserResponse = () => {
             try {
                 console.log("currentQuestion",currentQuestion.question);
                 console.log("answer",formResponses[currentQuestion.id]);
-                const response = await axios.post('/api/poking-questions', {
+                const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/poking-questions`, {
                     question: currentQuestion.question,
                     answer: formResponses[currentQuestion.id]
                     
