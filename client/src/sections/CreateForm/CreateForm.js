@@ -15,7 +15,14 @@ const CreateForm = () => {
     setQuestions([]);
 
     try {
-      const res = await axios.post('/api/generate-questions', { message });
+      const res = await axios.post('/api/generate-questions', 
+        { message },
+        {
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8',
+          }
+        }
+      );
       console.log(res);
       setQuestions(res.data.message.questions || []);
     } catch (err) {
@@ -26,7 +33,14 @@ const CreateForm = () => {
     }
 
     try {
-      const res = await axios.post('/api/generate-questions-title', { message });
+      const res = await axios.post('/api/generate-questions-title', 
+        { message },
+        {
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8',
+          }
+        }
+      );
       console.log(res);
       setTitle(res.data.title);
     } catch (err) {
