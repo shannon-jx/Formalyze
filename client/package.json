@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "proxy": "https://formalyze-sigma.vercel.app",
+  "proxy": "https://formalyze-git-main-shannon-jxs-projects.vercel.app",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.13.3",
